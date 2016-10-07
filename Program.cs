@@ -55,11 +55,7 @@ namespace ConsoleApplication1
                             test = line.Substring(4, line.IndexOf(" id ") - 4);
 
                             string[] testarray = test.Split(' ');
-                            for (int i = 0; i < testarray.Length; i++)
-                            {
-                                Console.WriteLine(testarray[i] + " HERE BOY");
-
-                            }
+                            
                             if (testarray.Length < 2)
                             {
                                 Console.WriteLine("An officer must have a surname and at least one given name");
@@ -77,8 +73,8 @@ namespace ConsoleApplication1
                                 }
                                 else
                                 {
-                                    FirstCharToUpper(testarray[0]);
-                                    new_staff.FirstName = testarray[0];
+                                   
+                                    new_staff.FirstName = FirstCharToUpper(testarray[0]);
                                 }
                                 int num1;
                                 bool isNum1 = Int32.TryParse(testarray[0], out num1);
@@ -89,12 +85,14 @@ namespace ConsoleApplication1
                                 }
                                 else
                                 {
-                                    new_staff.Surname = testarray[1];
+                                    //FirstCharToUpper(testarray[1]);
+                                    new_staff.Surname = FirstCharToUpper(testarray[1]);
                                 }
 
 
 
                             }
+                            //if there are more than 2 names
                             else if (testarray.Length > 2) {
                                 string newname = "";
                                 for (int i = 0; i < (testarray.Length - 1); i++)
@@ -108,10 +106,10 @@ namespace ConsoleApplication1
                                     }
                                     else
                                     {
-                                        newname = newname + " " + testarray[i];
+                                        newname = newname + " " + FirstCharToUpper(testarray[i]);
                                     }
                                 }
-                                new_staff.FirstName = newname;
+                                new_staff.FirstName = FirstCharToUpper(newname);
                                 int num2;
                                 bool isNum2 = Int32.TryParse(testarray[testarray.Length - 1], out num2);
                                 if (isNum2)
@@ -121,7 +119,7 @@ namespace ConsoleApplication1
                                 }
                                 else
                                 {
-                                    new_staff.Surname = testarray[testarray.Length - 1];
+                                    new_staff.Surname = FirstCharToUpper(testarray[testarray.Length - 1]);
                                 }
 
                                 //Console.WriteLine(newname + " last name: {0}  THIS IS THE NEW NAME FOR LOTS OF NAMES", testarray[testarray.Length - 1]);
@@ -140,7 +138,7 @@ namespace ConsoleApplication1
                                     int num = 0;
                                     bool isNum = Int32.TryParse(test, out num);
                                     
-                                    Console.WriteLine(num.ToString().Length );
+                                    //Console.WriteLine(num.ToString().Length );
                                     if (isNum)
                                     {
 
@@ -148,11 +146,15 @@ namespace ConsoleApplication1
                                         {
                                             new_staff.OfficerID = num;
                                         }
+                                        else
+                                        {
+                                            Console.WriteLine("The officer ID must be a six digit number");
+                                            goto NotFound;
+                                        }
 
                                     }
                                     else
                                     {
-                                        
                                         Console.WriteLine("The officer ID must be a six digit number");
                                         goto NotFound;
                                     }
@@ -169,22 +171,22 @@ namespace ConsoleApplication1
                         v = v.Replace(" id ", " ");
                         v = v.Replace(" as ", " ");
                         string[] d = v.Split(' ');
-                        Console.WriteLine(d.Length + "dfddsdsd");
+                        
                         //if the user enters 4 different words either correctly.
                         string caseSwitch = d[d.Length - 1];
                         switch (caseSwitch)
                         {
                             case "basic":
                                 new_staff.SkillLevel = "Basic";
-                                Console.WriteLine("basic BITCH");
+                                
                                 break;
                             case "intermediate":
                                 new_staff.SkillLevel = "Intermediate";
-                                Console.WriteLine("intermediate BITCH");
+                                
                                 break;
                             case "advanced":
                                 new_staff.SkillLevel = "Advanced";
-                                Console.WriteLine("advanced BITCH");
+                           
                                 break;
                             default:
                                 Console.WriteLine("The skill level for the officer must be one of basic, intermediate, or advanced");
@@ -192,35 +194,7 @@ namespace ConsoleApplication1
 
                         }
 
-                        // int offid = Convert.ToInt32(line[d.Length - 2]);
-                        //Console.WriteLine(offid + "TESTS");
-                        if (d.Length == 4)
-                        {
-
-                            Console.WriteLine("WILL" + d[0] + d[1] + d[2] + d[3] + "WILL");
-                        }
-
-
-                        // skill level .length should be 2  
-                        for (int i = 0; i < a.Length; i++)
-                        {
-                            Console.WriteLine(a[i] + " a {0}", a.Length);
-                        }
-                        Console.WriteLine("DONE");
-                        //id .length should be 2
-                        for (int i = 0; i < b.Length; i++)
-                        {
-                            //b[1]
-                            Console.WriteLine(b[i] + " b  : {0}", b.Length);
-                        }
-                        Console.WriteLine("DONE ID");
-
-                        //need to reconvert the first letters of names to upper case and also check if user input is correct
-                        for (int i = 0; i < c.Length; i++)
-                        {
-                            Console.WriteLine(c[i]);
-                        }
-
+               
 
                         new_staff.Ambulance = null;
                         db.AMBULANCE_STAFFS.Add(new_staff);

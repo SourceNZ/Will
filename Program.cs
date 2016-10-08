@@ -294,7 +294,27 @@ namespace ConsoleApplication1
                         //LIST FUNCTION SPECIFIC NAME
                         if (words.Length == 2)
                         {
-                            Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
+                            int o = 0;
+                            foreach (var x in db.AMBULANCE_STAFFS)
+                            {
+                                string wordsss = words[words.Length - 1].ToLower();
+                                try
+                                {
+                                    if (wordsss.Equals(x.Surname.ToLower()))
+                                    {
+                                        o = 1;
+                                    }
+                                }catch(Exception k)
+                                {
+                                    
+                                }
+                            }
+                            if(o != 0)
+                            {
+                                Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
+                            }
+                                //should find a way to make sure this doesnt print 
+                                
                             foreach (var x in db.AMBULANCE_STAFFS)
                             {
 
@@ -302,23 +322,28 @@ namespace ConsoleApplication1
                                 {
                                     x.Ambulance = "None";
                                 }
-                                //may need to fix this: doesnt like the 1 index
+                                
                                 string wordss = words[words.Length - 1].ToLower();
                                 try
                                 {
                                     if (wordss.Equals(x.Surname.ToLower()))
                                     {
                                         l++;
-
                                         Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
                                     }
                                 }
                                 catch (Exception n)
                                 {
-                                    Console.WriteLine("YEAH THAT DIDNT WORK");
+                                    
                                 }
+                                
 
                             }
+                            if (o == 0)
+                            {
+                                Console.WriteLine("Please enter a Officer surname");
+                            }
+                            
                             Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
                         }
                         db.SaveChanges();
@@ -440,26 +465,20 @@ namespace ConsoleApplication1
                                         if (x.OfficerID.Equals(num))
                                         {
                                             l = 1;
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
-                                            if (!(x.Ambulance.Equals("None")))
+                                            
+                                            if(x.Ambulance != null)
                                             {
+
+                                              if (!(x.Ambulance.Equals("None")))
+                                              {
                                                 string[] newid = new string[2] {"1", "1"};
                                                 newamb = x.Ambulance;
                                                 if(!x.Ambulance.Equals("None"))
                                                 {
                                                     newid = assign(newamb);
                                                 }
-                                                Console.WriteLine(newamb + "this is the ambulance that the persons aassigned to");    //None
-                                                Console.WriteLine(newid[0] + "this should be the same as above");                //1
+                                                //Console.WriteLine(newamb + "this is the ambulance that the persons aassigned to");    //None
+                                               // Console.WriteLine(newid[0] + "this should be the same as above");                //1
                                                 if (!(newid[0].Equals("1")))
                                                 {
                                                       x.Ambulance = null;
@@ -473,6 +492,7 @@ namespace ConsoleApplication1
                                             {
                                                 Console.WriteLine("Officer is not assigned to an ambulance");
                                                 goto NotFound;
+                                            }
                                             }
 
 
@@ -505,11 +525,7 @@ namespace ConsoleApplication1
                             Console.WriteLine("Officer not found");
                             goto NotFound;
                         }
-
-
                     }
-                    
-                    
                     else
                     { 
                          Console.WriteLine("Invalid command: the valid commands are ADD, REMOVE, LIST, ASSIGN, UNASSIGN and EXIT");

@@ -202,6 +202,55 @@ namespace ConsoleApplication1
                         Console.WriteLine("The ambulance officer has been added");
 
                     }
+
+                    if (c[0].Equals("remove"))
+                    {
+                        string teste = line.Replace("remove ", "");
+                        string[] tester = teste.Split(' ');
+                        int numba = 0;
+                        Console.WriteLine("pay here " + tester.Length);
+                        Console.WriteLine("pay heresds " + tester[0]);
+                        tester[0] = tester[0].Replace(" ", "");
+                        bool isNum = Int32.TryParse(tester[0], out numba);
+
+                        //Console.WriteLine(num.ToString().Length );
+                        if (isNum)
+                        {
+
+                            if (tester[0].Length == 6)
+                            {
+                                foreach (var x in db.AMBULANCE_STAFFS)
+                                {
+                                   //Console.WriteLine(x.OfficerID + " -- " + numba);
+                                    if (x.OfficerID.Equals(numba))
+                                    {
+
+                                        db.AMBULANCE_STAFFS.Remove(x);
+                                        Console.WriteLine("Officer {0} {1} ({2}) has been removed ",x.Surname, x.FirstName, x.SkillLevel); 
+
+                                        //Console.WriteLine(x.Surname + x.FirstName + "this guy");
+                                        //break;
+                                    }
+                                    
+                                    
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Officer ID not found");
+                                goto NotFound;
+                            }
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Please enter a 6 Digit Officer ID");
+                            goto NotFound;
+                        }
+
+                        db.SaveChanges();
+                        
+                    }
                     //LIST FUNCTION ALL
                     if (line.Equals("list"))
                     {
@@ -209,7 +258,8 @@ namespace ConsoleApplication1
                         Console.WriteLine("\nAmbulance Officer List as of {0:d} at {0:T}", dat);
 
                         Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
-                        foreach (var x in db.AMBULANCE_STAFFS) {
+                        foreach (var x in db.AMBULANCE_STAFFS)
+                        {
                             if (x.Ambulance == (null))
                             {
                                 x.Ambulance = "None";
@@ -217,33 +267,43 @@ namespace ConsoleApplication1
                             Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
                         }
                         int k = db.AMBULANCE_STAFFS.Count(); Console.WriteLine(String.Format("Listed {0} Officers. \n", k));
-                    }
+                    
 
-                    string[] words = line.Split(' ');
-                    int l = 0;
-                    //LIST FUNCTION SPECIFIC NAME
-                    if (words.Length == 2)
-                    {
-                        Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
-                        foreach (var x in db.AMBULANCE_STAFFS)
+                        string[] words = line.Split(' ');
+                        int l = 0;
+                        //LIST FUNCTION SPECIFIC NAME
+                        if (words.Length == 2)
                         {
-
-                            if (x.Ambulance == (null))
+                            Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
+                            foreach (var x in db.AMBULANCE_STAFFS)
                             {
-                                x.Ambulance = "None";
-                            }
-                            words[1] = words[1].ToLower();
-                            if (words[1].Equals(x.Surname.ToLower()))
-                            {
-                                l++;
 
-                                Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
+                                if (x.Ambulance == (null))
+                                {
+                                    x.Ambulance = "None";
+                                }
+                                //may need to fix this: doesnt like the 1 index
+                                string wordss = words[words.Length - 1].ToLower();
+                                try
+                                {
+                                    if (wordss.Equals(x.Surname.ToLower()))
+                                    {
+                                        l++;
+
+                                        Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
+                                    }
+                                }
+                                catch (Exception n)
+                                {
+
+                                }
+
                             }
+                            Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
                         }
-                        Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
+
                     }
-
-
+                    db.SaveChanges();
                 }
                 
                 using (AMBULANCES_CONTEXT db = new AMBULANCES_CONTEXT())

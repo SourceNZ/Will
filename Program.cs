@@ -17,6 +17,29 @@ namespace ConsoleApplication1
             }
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
+        public static string[] assign(string inputt)
+        {
+            string[] newid = new string[2] {"1", "1"};
+            string tester = inputt.ToUpper();
+            using (AMBULANCES_CONTEXT db1 = new AMBULANCES_CONTEXT())
+            {
+                foreach (var y in db1.AMBULANCES)
+                {
+                    Console.WriteLine(y.AmbulanceID + "newambIDS");
+                    if (tester.Equals(y.AmbulanceID))
+                    {
+                        newid[0] = y.AmbulanceID;
+                        newid[1] = y.Station;
+                    }
+                    
+                }
+                if(newid == null)
+                {
+                    newid[0] = "1";
+                }
+            }
+            return newid;
+        }
         static void Main(string[] args)
         {
         NotFound:
@@ -37,7 +60,7 @@ namespace ConsoleApplication1
                         //if there is no id then print an error message
                         if (line.IndexOf(" id ") == -1)
                         {
-                            
+
                             Console.WriteLine("An officer must have a six digit ID number");
                             goto NotFound;
                         }
@@ -55,7 +78,7 @@ namespace ConsoleApplication1
                             test = line.Substring(4, line.IndexOf(" id ") - 4);
 
                             string[] testarray = test.Split(' ');
-                            
+
                             if (testarray.Length < 2)
                             {
                                 Console.WriteLine("An officer must have a surname and at least one given name");
@@ -73,7 +96,7 @@ namespace ConsoleApplication1
                                 }
                                 else
                                 {
-                                   
+
                                     new_staff.FirstName = FirstCharToUpper(testarray[0]);
                                 }
                                 int num1;
@@ -134,10 +157,10 @@ namespace ConsoleApplication1
                                     test = test.Replace(" ", "");
                                     test = test.Replace("as", "");
                                     test = test.Replace("int", "");
-                                    
+
                                     int num = 0;
                                     bool isNum = Int32.TryParse(test, out num);
-                                    
+
                                     //Console.WriteLine(num.ToString().Length );
                                     if (isNum)
                                     {
@@ -171,22 +194,22 @@ namespace ConsoleApplication1
                         v = v.Replace(" id ", " ");
                         v = v.Replace(" as ", " ");
                         string[] d = v.Split(' ');
-                        
+
                         //if the user enters 4 different words either correctly.
                         string caseSwitch = d[d.Length - 1];
                         switch (caseSwitch)
                         {
                             case "basic":
                                 new_staff.SkillLevel = "Basic";
-                                
+
                                 break;
                             case "intermediate":
                                 new_staff.SkillLevel = "Intermediate";
-                                
+
                                 break;
                             case "advanced":
                                 new_staff.SkillLevel = "Advanced";
-                           
+
                                 break;
                             default:
                                 Console.WriteLine("The skill level for the officer must be one of basic, intermediate, or advanced");
@@ -194,7 +217,7 @@ namespace ConsoleApplication1
 
                         }
 
-               
+
 
                         new_staff.Ambulance = null;
                         db.AMBULANCE_STAFFS.Add(new_staff);
@@ -203,7 +226,7 @@ namespace ConsoleApplication1
 
                     }
 
-                    if (c[0].Equals("remove"))
+                    else if (c[0].Equals("remove"))
                     {
                         string teste = line.Replace("remove ", "");
                         string[] tester = teste.Split(' ');
@@ -221,18 +244,18 @@ namespace ConsoleApplication1
                             {
                                 foreach (var x in db.AMBULANCE_STAFFS)
                                 {
-                                   //Console.WriteLine(x.OfficerID + " -- " + numba);
+                                    //Console.WriteLine(x.OfficerID + " -- " + numba);
                                     if (x.OfficerID.Equals(numba))
                                     {
 
                                         db.AMBULANCE_STAFFS.Remove(x);
-                                        Console.WriteLine("Officer {0} {1} ({2}) has been removed ",x.Surname, x.FirstName, x.SkillLevel); 
+                                        Console.WriteLine("Officer {0} {1} ({2}) has been removed ", x.Surname, x.FirstName, x.SkillLevel);
 
                                         //Console.WriteLine(x.Surname + x.FirstName + "this guy");
                                         //break;
                                     }
-                                    
-                                    
+
+
                                 }
                             }
                             else
@@ -249,10 +272,10 @@ namespace ConsoleApplication1
                         }
 
                         db.SaveChanges();
-                        
+
                     }
                     //LIST FUNCTION ALL
-                    if (c[0].Equals("list"))
+                    else if (c[0].Equals("list"))
                     {
                         if (c.Length == 1)
                         {
@@ -274,7 +297,7 @@ namespace ConsoleApplication1
                         }
                         string[] words = line.Split(' ');
                         int l = 0;
-                        
+
                         //LIST FUNCTION SPECIFIC NAME
                         if (words.Length == 2)
                         {
@@ -306,56 +329,203 @@ namespace ConsoleApplication1
                             Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
                         }
                     }
+                    //need to complete - assign 123456 to a7 
+                    // c[0] = assign, c[1] = 123456, c[2] = to, c[3] = a7
+                    else if (c[0].Equals("assign"))
+                    {
+                        string[] assignarray = line.Split(' ');
+                        // assignarray[0] = assign, assignarray[1] = 123456, assignarray[2] = to, assignarray[3] = a7     length  = 4
+                        if (assignarray.Length == 4)
+                        {
+                            //if there is a to : 
+                            if ((line.IndexOf(" to ")) != -1)
+                            {
+                                //string newid = null;
+                                string offid = assignarray[1];
+                                string newamb = null;
+                                if (assignarray.Length > 0)
+                                {
+                                    newamb = assignarray[assignarray.Length - 1];
+
+                                }
+                                Console.WriteLine(newamb + "< newamb");
+                                int num = 0;
+                                bool isNum = Int32.TryParse(offid, out num);
+                                Console.WriteLine(num + "< NUMM");
+                                //if the user entered a number correctly it will pass this test:
+                                //Console.WriteLine(num.ToString().Length );
+                                if (isNum)
+                                {
+                                    //if the number is 6 digit long
+                                    if (offid.Length == 6)
+                                    {
+                                        //find the staff member with that id
+                                        //then change that staff members.ambulance to be set to ambulance specified if they specify one.
+                                        string[] newid = assign(newamb);
+                                        if (newid.Length > 0)
+                                        {
+                                            //Console.WriteLine(newid[0] + "< newid");
+                                            //unhandled null exception - handled now
+                                            if (!(newid[0].Equals("1")))
+                                            {
+                                                foreach (var x in db.AMBULANCE_STAFFS)
+                                                {
+                                                    if (x.OfficerID.Equals(num) && newid[0] != "1")
+                                                    {
+                                                        x.Ambulance = newid[0];
+                                                        Console.WriteLine("The ambulance officer has been assigned to {0} at {1}.", newid[0], newid[1]);
+
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                //Console.WriteLine(newid + "< newid after assignment");
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("The officer ID must be a six digit number");
+                                        goto NotFound;
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("The officer ID must be a six digit number");
+                                    goto NotFound;
+                                }
+                                //test = line.Substring(line.IndexOf(" id "), line.Length - (line.IndexOf(" as ") - 1));
+                                //     string sub = "";
+                                //    try
+                                //    {
+                                //        sub = line.Substring(line.IndexOf(" to "), (line.Length - 1));
+                                //    }
+                                //    catch(Exception s)
+                                //  {
+                                //
+                                //}
+                                //Console.WriteLine(sub + "<-THIS IS THE OPTIMAL LENGTH");
+                                //line.IndexOf(" to ");
+                            }
+                            //if there is no to: print error message
+                            else
+                            {
+                                Console.WriteLine("Ambulance ID is missing or not found");
+
+                            }
+
+                        }
+
+
+                    }
+                    //unassign - unassign 134321 
+                    else if (c[0].Equals("unassign"))
+                    {
+                        string[] assignarray = line.Split(' ');
+                        // assignarray[0] = unassign, assignarray[1] = 123456
+                        if (assignarray.Length == 2)
+                        {
+                            //string newid = null;
+                            string offid = assignarray[1];
+                            string newamb = null;
+                            //   if (assignarray.Length > 0)
+                            //  {
+                            //    newamb = assignarray[assignarray.Length - 1];
+                            //
+                            //}
+                            Console.WriteLine(newamb + "< newamb");
+                            int num = 0;
+                            bool isNum = Int32.TryParse(offid, out num);
+                            Console.WriteLine(num + "< NUMM");
+                            int l = 0;
+                            //if the user entered a number correctly it will pass this test:
+                            //Console.WriteLine(num.ToString().Length );
+                            if (isNum)
+                            {
+                                //if the number is 6 digit long
+                                if (offid.Length == 6)
+                                {
+
+                                    //find if the officer id exits and it has an ambulance, if it does then find out the details of that ambulance, if it doesnt then say it does
+                                    //returns ambulance details: gets passed ambulance
+                                    foreach (var x in db.AMBULANCE_STAFFS)
+                                    {
+                                    
+                                        if (x.OfficerID.Equals(num))
+                                        {
+                                            l = 1;
+                                            if (!(x.Ambulance.Equals("None")))
+                                            {
+                                                string[] newid = new string[2] {"1", "1"};
+                                                newamb = x.Ambulance;
+                                                if(!x.Ambulance.Equals("None"))
+                                                {
+                                                    newid = assign(newamb);
+                                                }
+                                                Console.WriteLine(newamb + "this is the ambulance that the persons aassigned to");    //None
+                                                Console.WriteLine(newid[0] + "this should be the same as above");                //1
+                                                if (!(newid[0].Equals("1")))
+                                                {
+                                                      x.Ambulance = null;
+                                                      Console.WriteLine(x.Ambulance + "this should be the null");
+                                                      Console.WriteLine("The ambulance officer has been removed from {0} at {1}.", newid[0], newid[1]);
+                                                }
+                                                
+                                            }
+                                            
+                                            else
+                                            {
+                                                Console.WriteLine("Officer is not assigned to an ambulance");
+                                                goto NotFound;
+                                            }
+
+
+                                        }
+
+                                    }
+                                    if (l == 0)
+                                    {
+                                        Console.WriteLine("Officer ID not found");
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    Console.WriteLine("The officer ID must be a six digit number");
+                                    goto NotFound;
+                                }
+
+                            }
+
+                            else
+                            {
+                                Console.WriteLine("The officer ID must be a six digit number");
+                                goto NotFound;
+                            }
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Officer not found");
+                            goto NotFound;
+                        }
+
+
+                    }
                     
+                    
+                    else
+                    { 
+                         Console.WriteLine("Invalid command: the valid commands are ADD, REMOVE, LIST, ASSIGN, UNASSIGN and EXIT");
+                    }
                     db.SaveChanges();
                 }
-                
-                using (AMBULANCES_CONTEXT db = new AMBULANCES_CONTEXT())
-                {
-                    /*
-                     *            string line;
-                        //Console.WriteLine("Connection string: {0}", db.Database.Connection.ConnectionString); int j = db.AMBULANCES.Count(); Console.WriteLine(String.Format("We have {0} records. \n", j));
-                        Console.Write(">:");
-                        line = Console.ReadLine();
-                        if(line.Equals("list"))
-                        {
-                            DateTime dat = DateTime.Now;
-                            Console.WriteLine("\nAmbulance officer list as of {0:d} at {0:T}", dat);
-
-                            Console.WriteLine("AmbulanceID  Station");
-                            foreach (var x in db.AMBULANCES) { Console.WriteLine("AmbulanceID {0}; Station {1}; ", x.AmbulanceID, x.Station); }
-                        }
-                        //If they specify a last name, filter through the list of ambulances/officers and find those people with that last name
-                        foreach (var x in db.AMBULANCES)
-                        {
-                            if (line.Equals(x.AmbulanceID))
-                            {
-                                Console.WriteLine("AmbulanceID {0}; Station {1}; ", x.AmbulanceID, x.Station);
-                            }
-                        }
-                        int k = db.AMBULANCES.Count(); Console.WriteLine(String.Format("Listed {0} Ambulances. \n", k));
-                        //Console.ReadLine();
-                        */
-                }
-                //  Console.Write(">:");
-                //  if (Console.ReadLine() == "exit")
-                // {
-                //     
-                //  }
-                // using (AMBULANCES_STAFF_CONTEXT db = new AMBULANCES_STAFF_CONTEXT())
-                //{
-                //var new_staff = new AMBULANCE_STAFF(db.Surname = "Bob", FirstName = "Jones", OfficerID = "123456", SkillLevel = "basic", AMBULANCE = "A1");
-                // db.add(new_staff);
-                // db.SaveChanges();
-                // }
-                //line = Console.ReadLine();
-                //Console.Write(">:");
                 Console.Write(">:");
             }
             Environment.Exit(0);
         }
-
     }
-   
 }
 

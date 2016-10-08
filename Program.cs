@@ -252,25 +252,29 @@ namespace ConsoleApplication1
                         
                     }
                     //LIST FUNCTION ALL
-                    if (line.Equals("list"))
+                    if (c[0].Equals("list"))
                     {
-                        DateTime dat = DateTime.Now;
-                        Console.WriteLine("\nAmbulance Officer List as of {0:d} at {0:T}", dat);
-
-                        Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
-                        foreach (var x in db.AMBULANCE_STAFFS)
+                        if (c.Length == 1)
                         {
-                            if (x.Ambulance == (null))
-                            {
-                                x.Ambulance = "None";
-                            }
-                            Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
-                        }
-                        int k = db.AMBULANCE_STAFFS.Count(); Console.WriteLine(String.Format("Listed {0} Officers. \n", k));
-                    
 
+
+                            DateTime dat = DateTime.Now;
+                            Console.WriteLine("\nAmbulance Officer List as of {0:d} at {0:T}", dat);
+
+                            Console.WriteLine("Surname  FirstName  OfficerID  SkillLevel  Ambulance");
+                            foreach (var x in db.AMBULANCE_STAFFS)
+                            {
+                                if (x.Ambulance == (null))
+                                {
+                                    x.Ambulance = "None";
+                                }
+                                Console.WriteLine("{0}, {1}, {2}, {3}, {4}", x.Surname, x.FirstName, x.OfficerID, x.SkillLevel, x.Ambulance);
+                            }
+                            int k = db.AMBULANCE_STAFFS.Count(); Console.WriteLine(String.Format("Listed {0} Officers. \n", k));
+                        }
                         string[] words = line.Split(' ');
                         int l = 0;
+                        
                         //LIST FUNCTION SPECIFIC NAME
                         if (words.Length == 2)
                         {
@@ -295,14 +299,14 @@ namespace ConsoleApplication1
                                 }
                                 catch (Exception n)
                                 {
-
+                                    Console.WriteLine("YEAH THAT DIDNT WORK");
                                 }
 
                             }
                             Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
                         }
-
                     }
+                    
                     db.SaveChanges();
                 }
                 

@@ -13,7 +13,7 @@ namespace ConsoleApplication1
         {
             if (String.IsNullOrEmpty(input))
             {
-                throw new ArgumentException("ARGH!");
+                throw new ArgumentException("FirstCharToUpper String.IsNullOrEmpty..... Good One....!");
             }
             return input.First().ToString().ToUpper() + input.Substring(1);
         }
@@ -25,7 +25,7 @@ namespace ConsoleApplication1
             {
                 foreach (var y in db1.AMBULANCES)
                 {
-                    Console.WriteLine(y.AmbulanceID + "newambIDS");
+                    //Console.WriteLine(y.AmbulanceID + "newambIDS");
                     if (tester.Equals(y.AmbulanceID))
                     {
                         newid[0] = y.AmbulanceID;
@@ -236,7 +236,6 @@ namespace ConsoleApplication1
                         tester[0] = tester[0].Replace(" ", "");
                         bool isNum = Int32.TryParse(tester[0], out numba);
 
-                        //Console.WriteLine(num.ToString().Length );
                         if (isNum)
                         {
 
@@ -244,18 +243,13 @@ namespace ConsoleApplication1
                             {
                                 foreach (var x in db.AMBULANCE_STAFFS)
                                 {
-                                    //Console.WriteLine(x.OfficerID + " -- " + numba);
+                           
                                     if (x.OfficerID.Equals(numba))
                                     {
 
                                         db.AMBULANCE_STAFFS.Remove(x);
                                         Console.WriteLine("Officer {0} {1} ({2}) has been removed ", x.Surname, x.FirstName, x.SkillLevel);
-
-                                        //Console.WriteLine(x.Surname + x.FirstName + "this guy");
-                                        //break;
                                     }
-
-
                                 }
                             }
                             else
@@ -263,17 +257,16 @@ namespace ConsoleApplication1
                                 Console.WriteLine("Officer ID not found");
                                 goto NotFound;
                             }
-
                         }
                         else
                         {
                             Console.WriteLine("Please enter a 6 Digit Officer ID");
                             goto NotFound;
                         }
-
                         db.SaveChanges();
 
                     }
+
                     //LIST FUNCTION ALL
                     else if (c[0].Equals("list"))
                     {
@@ -328,17 +321,19 @@ namespace ConsoleApplication1
                             }
                             Console.WriteLine(String.Format("Listed {0} Officers. \n", l));
                         }
+                        db.SaveChanges();
                     }
-                    //need to complete - assign 123456 to a7 
+                    
                     // c[0] = assign, c[1] = 123456, c[2] = to, c[3] = a7
                     else if (c[0].Equals("assign"))
                     {
+
                         string[] assignarray = line.Split(' ');
                         // assignarray[0] = assign, assignarray[1] = 123456, assignarray[2] = to, assignarray[3] = a7     length  = 4
-                        if (assignarray.Length == 4)
+                        if ((line.IndexOf(" to ")) != -1)
                         {
                             //if there is a to : 
-                            if ((line.IndexOf(" to ")) != -1)
+                            if (assignarray.Length == 4)
                             {
                                 //string newid = null;
                                 string offid = assignarray[1];
@@ -348,12 +343,12 @@ namespace ConsoleApplication1
                                     newamb = assignarray[assignarray.Length - 1];
 
                                 }
-                                Console.WriteLine(newamb + "< newamb");
+                                //Console.WriteLine(newamb + "< newamb");
                                 int num = 0;
                                 bool isNum = Int32.TryParse(offid, out num);
-                                Console.WriteLine(num + "< NUMM");
+                                //Console.WriteLine(num + "< NUMM");
                                 //if the user entered a number correctly it will pass this test:
-                                //Console.WriteLine(num.ToString().Length );
+                                
                                 if (isNum)
                                 {
                                     //if the number is 6 digit long
@@ -364,7 +359,7 @@ namespace ConsoleApplication1
                                         string[] newid = assign(newamb);
                                         if (newid.Length > 0)
                                         {
-                                            //Console.WriteLine(newid[0] + "< newid");
+                                         
                                             //unhandled null exception - handled now
                                             if (!(newid[0].Equals("1")))
                                             {
@@ -396,18 +391,7 @@ namespace ConsoleApplication1
                                     Console.WriteLine("The officer ID must be a six digit number");
                                     goto NotFound;
                                 }
-                                //test = line.Substring(line.IndexOf(" id "), line.Length - (line.IndexOf(" as ") - 1));
-                                //     string sub = "";
-                                //    try
-                                //    {
-                                //        sub = line.Substring(line.IndexOf(" to "), (line.Length - 1));
-                                //    }
-                                //    catch(Exception s)
-                                //  {
-                                //
-                                //}
-                                //Console.WriteLine(sub + "<-THIS IS THE OPTIMAL LENGTH");
-                                //line.IndexOf(" to ");
+                           
                             }
                             //if there is no to: print error message
                             else
@@ -417,10 +401,15 @@ namespace ConsoleApplication1
                             }
 
                         }
+                        else
+                        {
+                            Console.WriteLine("Ambulance ID is missing or not found");
 
+                        }
+                        db.SaveChanges();
 
                     }
-                    //unassign - unassign 134321 
+                    //unassign - syntax = unassign 134321 
                     else if (c[0].Equals("unassign"))
                     {
                         string[] assignarray = line.Split(' ');
@@ -430,11 +419,6 @@ namespace ConsoleApplication1
                             //string newid = null;
                             string offid = assignarray[1];
                             string newamb = null;
-                            //   if (assignarray.Length > 0)
-                            //  {
-                            //    newamb = assignarray[assignarray.Length - 1];
-                            //
-                            //}
                             Console.WriteLine(newamb + "< newamb");
                             int num = 0;
                             bool isNum = Int32.TryParse(offid, out num);
@@ -456,6 +440,16 @@ namespace ConsoleApplication1
                                         if (x.OfficerID.Equals(num))
                                         {
                                             l = 1;
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
+                                            //need to add in a case here for if it equals null because it will probably be set to null at the start of testing
                                             if (!(x.Ambulance.Equals("None")))
                                             {
                                                 string[] newid = new string[2] {"1", "1"};

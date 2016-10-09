@@ -148,76 +148,86 @@ namespace ConsoleApplication1
 
                                 //Console.WriteLine(newname + " last name: {0}  THIS IS THE NEW NAME FOR LOTS OF NAMES", testarray[testarray.Length - 1]);
                             }
+                            string v = line.Replace("add ", "");
+                            v = v.Replace(" id ", " ");
+                            v = v.Replace(" as ", " ");
+                            string[] d = v.Split(' ');
+
+                            //if the user enters 4 different words either correctly.
+                            string caseSwitch = d[d.Length - 1];
+                            switch (caseSwitch)
+                            {
+                                case "basic":
+                                    new_staff.SkillLevel = "Basic";
+                                    caseSwitch = "0";
+
+                                    break;
+                                case "intermediate":
+                                    new_staff.SkillLevel = "Intermediate";
+                                    caseSwitch = "0";
+
+                                    break;
+                                case "advanced":
+                                    new_staff.SkillLevel = "Advanced";
+                                    caseSwitch = "0";
+
+                                    break;
+                                default:
+                                    caseSwitch = "1";
+                                    Console.WriteLine("The skill level for the officer must be one of basic, intermediate, or advanced");
+                                    goto NotFound;
+
+                            }
                             //if there is an id and and as, then get the number between those two words and it should be the ID # then verify its a 6 digit number DONE
                             if (!(line.IndexOf(" id ") == -1))
                             {
                                 if (!(line.IndexOf(" as ") == -1))
                                 {
-                                    test = line.Substring(line.IndexOf(" id "), line.Length - (line.IndexOf(" as ") - 1));
-                                    test = test.Replace(" id ", "");
-                                    test = test.Replace(" ", "");
-                                    test = test.Replace("as", "");
-                                    test = test.Replace("int", "");
-
-                                    int num = 0;
-                                    bool isNum = Int32.TryParse(test, out num);
-
-                                    //Console.WriteLine(num.ToString().Length );
-                                    if (isNum)
+                                    if (caseSwitch != "1")
                                     {
+                                        test = line.Substring(line.IndexOf(" id "), line.Length - (line.IndexOf(" as ") - 1));  //4 digit number
+                                        test = test.Replace(" as ", "");
+                                        test = test.Replace(" id ", "");
+                                        test = test.Replace(" ", "");
 
-                                        if (test.Length == 6)
+                                        test = test.Replace("int", "");
+                                        
+                                        int num = 0;
+                                        bool isNum = Int32.TryParse(test, out num);
+                                        
+                                        //Console.WriteLine(num.ToString().Length );
+                                        if (isNum)
                                         {
-                                            new_staff.OfficerID = num;
+
+                                            if (test.Length == 6)
+                                            {
+                                                new_staff.OfficerID = num;
+                                            }
+                                            else
+                                            {
+                                                
+                                                Console.WriteLine("The officer ID must be a six digit number");
+                                                goto NotFound;
+                                            }
+
                                         }
                                         else
                                         {
+                                            
                                             Console.WriteLine("The officer ID must be a six digit number");
                                             goto NotFound;
                                         }
 
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("The officer ID must be a six digit number");
-                                        goto NotFound;
-                                    }
 
-
+                                    }
                                 }
+
+
+
                             }
 
 
-
                         }
-
-                        string v = line.Replace("add ", "");
-                        v = v.Replace(" id ", " ");
-                        v = v.Replace(" as ", " ");
-                        string[] d = v.Split(' ');
-
-                        //if the user enters 4 different words either correctly.
-                        string caseSwitch = d[d.Length - 1];
-                        switch (caseSwitch)
-                        {
-                            case "basic":
-                                new_staff.SkillLevel = "Basic";
-
-                                break;
-                            case "intermediate":
-                                new_staff.SkillLevel = "Intermediate";
-
-                                break;
-                            case "advanced":
-                                new_staff.SkillLevel = "Advanced";
-
-                                break;
-                            default:
-                                Console.WriteLine("The skill level for the officer must be one of basic, intermediate, or advanced");
-                                goto NotFound;
-
-                        }
-
 
 
                         new_staff.Ambulance = null;
@@ -231,9 +241,10 @@ namespace ConsoleApplication1
                     {
                         string teste = line.Replace("remove ", "");
                         string[] tester = teste.Split(' ');
+                        int p = 0;
                         int numba = 0;
-                        Console.WriteLine("pay here " + tester.Length);
-                        Console.WriteLine("pay heresds " + tester[0]);
+                        //Console.WriteLine("pay here " + tester.Length);
+                        //Console.WriteLine("pay heresds " + tester[0]);
                         tester[0] = tester[0].Replace(" ", "");
                         bool isNum = Int32.TryParse(tester[0], out numba);
 
@@ -247,11 +258,16 @@ namespace ConsoleApplication1
 
                                     if (x.OfficerID.Equals(numba))
                                     {
-
+                                        p = 1;
                                         db.AMBULANCE_STAFFS.Remove(x);
                                         Console.WriteLine("Officer {0} {1} ({2}) has been removed ", x.Surname, x.FirstName, x.SkillLevel);
                                     }
                                 }
+                             //   if(p != 0)
+                              //  {
+                              //      Console.WriteLine("Officer ID not found");
+                              //     goto NotFound;
+                               // }
                             }
                             else
                             {
@@ -402,8 +418,14 @@ namespace ConsoleApplication1
                                             }
                                             else
                                             {
-                                                //Console.WriteLine(newid + "< newid after assignment");
+                                                Console.WriteLine("Ambulance ID not found");
+                                                goto NotFound;
                                             }
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ambulance ID not found");
+                                            goto NotFound;
                                         }
                                     }
                                     else

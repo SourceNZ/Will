@@ -1,0 +1,33 @@
+/*1*/ SELECT "William" AS "First Name", "Idoine" AS "Last Name", "549327849" AS ID, "Computer science student at UoA" AS Description;
+
+/*2*/ SELECT * FROM Artist WHER Name LIKE 'f%' OR Name LIKE 'F%'  COLLATE NOCASE ORDER BY ArtistID;
+
+/*3*/  SELECT (FirstName || " " || Lastname) AS Name FROM Employee ORDER BY length(Name) DESC;
+
+/*4*/ UPDATE Employee SET Fax = ("+" || Fax) WHERE Fax NOT LIKE "+%";
+
+/*5*/ create table Country (CountryID Int PRIMARY KEY, Name Text NOT NULL, Desc Text DEFAULT "A Happy Place", Code text CHECK( length(Code) <= 7));
+
+/*6*/ SELECT Name FROM Track WHERE Name LIKE "% right %"  OR Name LIKE "right %" OR Name LIKE "% right" OR Name LIKE "% right %" COLLATE NOCASE;
+
+/*7*/ SELECT A.Title AS Album, count(T.name) AS Tracks, sum(T.UnitPrice) AS Price FROM Album A, Track T WHERE A.AlbumID = T.AlbumID GROUP BY A.AlbumID ORDER BY Price DESC;
+
+/*8*/ SELECT FirstName,  min((strftime('%Y', 'now') - strftime('%Y', BirthDate)) - (strftime('%m-%d', 'now') < strftime('%m-%d', BirthDate))) as age FROM Employee WHERE Title LIKE "%manager%";
+
+/*9*/ INSERT INTO PlayList VALUES(null,"Quick Music");
+/*9*/ INSERT OR REPLACE INTO PlayListTrack (PlaylistID, TrackID) Select * from ((select PlayListID FROM PlayList where Name LIKE "Quick%"), (select * From (SELECT TrackID FROM Track ORDER BY Millisecond ASC LIMIT 0,10)));
+/*try test this later and remove replace */
+
+/*10*/ SELECT * from(select "AAC" as Media, sum(tracks) as Tracks from (SELECT count(t.trackid) as tracks from track t, MediaType mt where mt.Name LIKE "%AAC%" AND t.mediatypeID = mt.mediatypeId group by t.mediatypeID))
+Union
+SELECT * from(select "Non AAC" as Media, sum(tracks) as Tracks from (SELECT count(t.trackid) as tracks from track t, MediaType mt where mt.Name NOT LIKE "%AAC%" AND t.mediatypeID = mt.mediatypeId group by t.mediatypeID))
+
+
+ 
+/*11*/ SELECT a.Title as "Album" , g.Name AS "Genre" FROM Album a, Genre g, Track t WHERE g.GenreID = t.GenreID AND t.AlbumID = a.AlbumID  GROUP BY t.genreID;
+
+
+select a.Title as "Album" , g.Name as "Genre" from Album a, Genre g, Track t where t.genreId in (select DISTINCT GenreID from Track) and g.GenreID = t.GenreID and t.AlbumID = a.AlbumID group by t.genreID;
+
+
+

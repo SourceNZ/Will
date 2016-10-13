@@ -63,7 +63,7 @@ namespace WindowsFormsApplication1
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Names = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Skill = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ambulance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Back = new System.Windows.Forms.Button();
@@ -86,7 +86,7 @@ namespace WindowsFormsApplication1
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.Name,
+            this.Names,
             this.Skill,
             this.Ambulance});
             this.dataGridView1.Location = new System.Drawing.Point(31, 60);
@@ -105,9 +105,9 @@ namespace WindowsFormsApplication1
             // 
             // Name
             // 
-            this.Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Name.HeaderText = "Name";
-            this.Name.Name = "Name";
+            this.Names.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Names.HeaderText = "Name";
+            this.Names.Name = "Name";
             // 
             // Skill
             // 
@@ -164,7 +164,7 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Names;
         private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn Name;
+        
         private DataGridViewTextBoxColumn Skill;
         private DataGridViewTextBoxColumn Ambulance;
         private Button Back;

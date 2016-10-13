@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
@@ -43,6 +44,8 @@ namespace WindowsFormsApplication1
             this.OfficerIDBox = new System.Windows.Forms.TextBox();
             this.SkillLevelBox = new System.Windows.Forms.ComboBox();
             this.AmbulanceBox = new System.Windows.Forms.ComboBox();
+            this.Back = new System.Windows.Forms.Button();
+            this.AddNew = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AmbulanceOfficerLabel
@@ -147,7 +150,7 @@ namespace WindowsFormsApplication1
             this.SkillLevelBox.Items.Add("Advanced");
             this.SkillLevelBox.SelectedIndex = SkillLevelBox.FindString(new_staff1.SkillLevel.ToString());
             Debug.WriteLine(new_staff1.OfficerID.ToString() + "HEY HO");
-      
+
             this.SkillLevelBox.FormattingEnabled = true;
             this.SkillLevelBox.Location = new System.Drawing.Point(167, 204);
             this.SkillLevelBox.Name = "SkillLevelBox";
@@ -157,6 +160,7 @@ namespace WindowsFormsApplication1
             // 
             // AmbulanceBox
             // 
+            this.AmbulanceBox.Items.Add("None");
             using (AMBULANCES_CONTEXT db1 = new AMBULANCES_CONTEXT())
             {
                 foreach (var y in db1.AMBULANCES)
@@ -164,16 +168,50 @@ namespace WindowsFormsApplication1
                     this.AmbulanceBox.Items.Add(y.AmbulanceID);
                 }
             }
+            if (new_staff1.Ambulance != null)
+            {
+
+
+                if (!new_staff1.Ambulance.Equals("None") )
+                {
+                    this.AmbulanceBox.SelectedIndex = AmbulanceBox.FindString(new_staff1.Ambulance);
+                }
+                else
+                {
+                    this.AmbulanceBox.SelectedIndex = AmbulanceBox.FindString("None");
+                }
+            }
+
             this.AmbulanceBox.FormattingEnabled = true;
             this.AmbulanceBox.Location = new System.Drawing.Point(167, 244);
             this.AmbulanceBox.Name = "AmbulanceBox";
             this.AmbulanceBox.Size = new System.Drawing.Size(220, 21);
             this.AmbulanceBox.TabIndex = 11;
-            
+
             //COMPLETE THIS
             // 
             // Form4
             // 
+            // 
+            // Back
+            // 
+            this.Back.Location = new System.Drawing.Point(31, 327);
+            this.Back.Name = "Back";
+            this.Back.Size = new System.Drawing.Size(133, 72);
+            this.Back.TabIndex = 2;
+            this.Back.Text = "Back";
+            this.Back.UseVisualStyleBackColor = true;
+            this.Back.Click += new System.EventHandler(this.button1_click);
+            // 
+            // AddNew
+            // 
+            this.AddNew.Location = new System.Drawing.Point(355, 327);
+            this.AddNew.Name = "AddNew";
+            this.AddNew.Size = new System.Drawing.Size(129, 72);
+            this.AddNew.TabIndex = 3;
+            this.AddNew.Text = "Add New";
+            this.AddNew.UseVisualStyleBackColor = true;
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 413);
@@ -189,6 +227,8 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.FirstnamesLabel);
             this.Controls.Add(this.OfficerNameLAbel);
             this.Controls.Add(this.AmbulanceOfficerLabel);
+            this.Controls.Add(this.AddNew);
+            this.Controls.Add(this.Back);
             this.Name = "Form4";
             this.Text = "Form4";
             this.ResumeLayout(false);
@@ -210,5 +250,8 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.TextBox OfficerIDBox;
         private System.Windows.Forms.ComboBox SkillLevelBox;
         private System.Windows.Forms.ComboBox AmbulanceBox;
-    }
+        private System.Windows.Forms.Button Back;
+        private System.Windows.Forms.Button AddNew;
+    
+}
 }

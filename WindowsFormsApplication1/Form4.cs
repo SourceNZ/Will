@@ -17,5 +17,17 @@ namespace WindowsFormsApplication1
             InitializeComponent(new_staff1);
 
         }
+
+        private void button1_click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2();
+            frm.Show();
+            this.Hide();
+        }
+
+        private void button2_click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

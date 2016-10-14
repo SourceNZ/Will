@@ -62,12 +62,12 @@ namespace WindowsFormsApplication1
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Names = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Skill = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ambulance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Back = new System.Windows.Forms.Button();
             this.AddNew = new System.Windows.Forms.Button();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OfficerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Skill = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ambulance = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,7 +86,7 @@ namespace WindowsFormsApplication1
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.Names,
+            this.OfficerName,
             this.Skill,
             this.Ambulance});
             this.dataGridView1.Location = new System.Drawing.Point(31, 60);
@@ -95,31 +95,7 @@ namespace WindowsFormsApplication1
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(453, 261);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            // 
-            // Name
-            // 
-            this.Names.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Names.HeaderText = "Name";
-            this.Names.Name = "Name";
-            // 
-            // Skill
-            // 
-            this.Skill.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Skill.HeaderText = "Skill";
-            this.Skill.Name = "Skill";
-            // 
-            // Ambulance
-            // 
-            this.Ambulance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Ambulance.HeaderText = "Ambulance";
-            this.Ambulance.Name = "Ambulance";
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Back
             // 
@@ -140,7 +116,30 @@ namespace WindowsFormsApplication1
             this.AddNew.Text = "Add New";
             this.AddNew.UseVisualStyleBackColor = true;
             this.AddNew.Click += new System.EventHandler(this.button2_Click);
-
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            // 
+            // OfficerName
+            // 
+            this.OfficerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.OfficerName.HeaderText = "Name";
+            this.OfficerName.Name = "OfficerName";
+            // 
+            // Skill
+            // 
+            this.Skill.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Skill.HeaderText = "Skill";
+            this.Skill.Name = "Skill";
+            // 
+            // Ambulance
+            // 
+            this.Ambulance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Ambulance.HeaderText = "Ambulance";
+            this.Ambulance.Name = "Ambulance";
             // 
             // Form2
             // 
@@ -151,12 +150,11 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.Back);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
-            //this.Name = "Form2";
+            this.Name = "Form2";
             this.Text = "Form2";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-            
 
         }
 
@@ -165,11 +163,11 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Names;
-        private DataGridViewTextBoxColumn ID;
-        
-        private DataGridViewTextBoxColumn Skill;
-        private DataGridViewTextBoxColumn Ambulance;
         private Button Back;
         private Button AddNew;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn OfficerName;
+        private DataGridViewTextBoxColumn Skill;
+        private DataGridViewTextBoxColumn Ambulance;
     }
 }

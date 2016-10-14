@@ -176,7 +176,7 @@ namespace WindowsFormsApplication1
             // AmbulanceBox
             // 
             this.AmbulanceBox.Items.Add("None");
-            using (AMBULANCES_CONTEXT db1 = new AMBULANCES_CONTEXT())
+            using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
             {
                 foreach (var y in db1.AMBULANCES)
                 {

@@ -69,6 +69,12 @@
     <Compile Include="AddNewOfficerForm.Designer.cs">
       <DependentUpon>AddNewOfficerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AmbulanceEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AmbulanceEdit.Designer.cs">
+      <DependentUpon>AmbulanceEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Class2.cs" />
     <Compile Include="Form1.cs">
@@ -97,6 +103,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AmbulanceEdit.resx">
+      <DependentUpon>AmbulanceEdit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

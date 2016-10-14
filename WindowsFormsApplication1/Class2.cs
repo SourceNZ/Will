@@ -5,9 +5,9 @@ using System;
 
 namespace WindowsFormsApplication1
 {
-    public class AMBULANCES_CONTEXT : DbContext
+    public class AMBULANCES_STAFF : DbContext
     {
-        public AMBULANCES_CONTEXT() : base("MySqlConnection") { }
+        public AMBULANCES_STAFF() : base("MySqlConnection") { }
         public DbSet<AMBULANCES> AMBULANCES { get; set; }
     }
     [Table("AMBULANCES")]

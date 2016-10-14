@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -25,8 +26,43 @@ namespace WindowsFormsApplication1
             this.Hide();
         }
 
+      
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            int j = e.ColumnIndex;
+            int i = e.RowIndex;
+            
+            using (AMBULANCES_STAFF db = new AMBULANCES_STAFF())
+            {
+                int l = 0;
+                
+                //dummy data
+                List<AMBULANCES> lstStaff = new List<AMBULANCES>();
+                foreach (var x in db.AMBULANCES)
+                {
+                    if (l == i)
+                    {
+                        var new_amb = new AMBULANCES();
+                        new_amb.AmbulanceID = x.AmbulanceID;
+                        new_amb.Station = x.Station;
+                        AmbulanceEdit newfrm = new AmbulanceEdit(new_amb);
+                        newfrm.Show();
+                        this.Hide();
+
+                    }
+                    this.dataGridView2.Rows.Add(x.AmbulanceID + " " + x.Station);
+                    lstStaff.Add(x);
+                    l++;
+                }
+              
+
+                //use binding source to hold dummy data
+                // BindingSource binding = new BindingSource();
+                // binding.DataSource = new_staff;
+
+                //bind datagridview to binding source
+                //dataGridView1.DataSource = binding;
+            }
 
         }
     }

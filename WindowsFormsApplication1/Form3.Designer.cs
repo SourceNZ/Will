@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
         }
         private void frmDGV_Load()
         {
-            using (AMBULANCES_CONTEXT db1 = new AMBULANCES_CONTEXT())
+            using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
             {
 
                  var new_staff = new AMBULANCE_STAFF();
@@ -56,10 +56,10 @@ namespace WindowsFormsApplication1
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.BackButton = new System.Windows.Forms.Button();
-            this.NewButton = new System.Windows.Forms.Button();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Station = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BackButton = new System.Windows.Forms.Button();
+            this.NewButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -83,7 +83,19 @@ namespace WindowsFormsApplication1
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(462, 288);
             this.dataGridView2.TabIndex = 1;
-            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            // 
+            // ID
+            // 
+            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            // 
+            // Station
+            // 
+            this.Station.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Station.HeaderText = "Station";
+            this.Station.Name = "Station";
             // 
             // BackButton
             // 
@@ -103,18 +115,6 @@ namespace WindowsFormsApplication1
             this.NewButton.TabIndex = 3;
             this.NewButton.Text = "Add New";
             this.NewButton.UseVisualStyleBackColor = true;
-            // 
-            // ID
-            // 
-            this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            // 
-            // Station
-            // 
-            this.Station.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Station.HeaderText = "Station";
-            this.Station.Name = "Station";
             // 
             // Form3
             // 

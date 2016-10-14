@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -125,6 +127,8 @@ namespace WindowsFormsApplication1
             this.FirstnamesBox.Size = new System.Drawing.Size(220, 20);
             this.FirstnamesBox.TabIndex = 7;
             this.FirstnamesBox.Text = new_staff1.FirstName;
+            this.FirstnamesBox.KeyDown += new KeyEventHandler(FirstnamesBox_changed);
+            
             // 
             // SurnameBox
             // 
@@ -133,6 +137,7 @@ namespace WindowsFormsApplication1
             this.SurnameBox.Size = new System.Drawing.Size(220, 20);
             this.SurnameBox.TabIndex = 8;
             this.SurnameBox.Text = new_staff1.Surname;
+            this.SurnameBox.KeyDown += new KeyEventHandler(SurnamesBox_changed);
             // 
             // OfficerIDBox
             // 
@@ -141,6 +146,7 @@ namespace WindowsFormsApplication1
             this.OfficerIDBox.Size = new System.Drawing.Size(220, 20);
             this.OfficerIDBox.TabIndex = 9;
             this.OfficerIDBox.Text = new_staff1.OfficerID.ToString();
+            this.OfficerIDBox.KeyDown += new KeyEventHandler(OfficerIDBox_changed);
 
             // 
             // SkillLevelBox
@@ -148,7 +154,15 @@ namespace WindowsFormsApplication1
             this.SkillLevelBox.Items.Add("Basic");
             this.SkillLevelBox.Items.Add("Intermediate");
             this.SkillLevelBox.Items.Add("Advanced");
-            this.SkillLevelBox.SelectedIndex = SkillLevelBox.FindString(new_staff1.SkillLevel.ToString());
+            try
+            {
+                this.SkillLevelBox.SelectedIndex = SkillLevelBox.FindString(new_staff1.SkillLevel.ToString());
+            }
+            catch (Exception)
+            {
+
+            }
+            
             Debug.WriteLine(new_staff1.OfficerID.ToString() + "HEY HO");
 
             this.SkillLevelBox.FormattingEnabled = true;
@@ -156,6 +170,7 @@ namespace WindowsFormsApplication1
             this.SkillLevelBox.Name = "SkillLevelBox";
             this.SkillLevelBox.Size = new System.Drawing.Size(220, 21);
             this.SkillLevelBox.TabIndex = 10;
+            this.SkillLevelBox.SelectedIndexChanged += new EventHandler(SkillBox_changed);
 
             // 
             // AmbulanceBox
@@ -187,6 +202,7 @@ namespace WindowsFormsApplication1
             this.AmbulanceBox.Name = "AmbulanceBox";
             this.AmbulanceBox.Size = new System.Drawing.Size(220, 21);
             this.AmbulanceBox.TabIndex = 11;
+            this.AmbulanceBox.SelectedIndexChanged += new EventHandler(AmbulanceBox_changed);
 
             //COMPLETE THIS
             // 
@@ -209,8 +225,10 @@ namespace WindowsFormsApplication1
             this.AddNew.Name = "AddNew";
             this.AddNew.Size = new System.Drawing.Size(129, 72);
             this.AddNew.TabIndex = 3;
-            this.AddNew.Text = "Add New";
+            this.AddNew.Text = "Save";
             this.AddNew.UseVisualStyleBackColor = true;
+            this.AddNew.Click += new System.EventHandler(this.button2_click);
+
 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

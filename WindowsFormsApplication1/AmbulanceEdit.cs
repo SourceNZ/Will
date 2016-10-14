@@ -31,11 +31,11 @@ namespace WindowsFormsApplication1
                 Debug.WriteLine(text + "LOLOL");
                 if (String.IsNullOrEmpty(text))
                 {
-                    MessageBox.Show("Please enter your Surname");
+                    MessageBox.Show("Please enter an AmbulanceID beginning with 'A'");
 
                 }
 
-                else if (text != null)
+                else if (text != null && text[0] == 'A' && text.Length >= 2)
                 {
                     Debug.WriteLine(AmbulanceIDBox.Text + "LOLOL2" + new_amb.AmbulanceID);
                     try
@@ -48,6 +48,10 @@ namespace WindowsFormsApplication1
                     }
 
                 }
+                else
+                {
+                    MessageBox.Show("Please enter an AmbulanceID beginning with 'A' and at least one digit");
+                }
             }
 
         }
@@ -59,7 +63,7 @@ namespace WindowsFormsApplication1
                 string text = StationBox.Text;
                 if (String.IsNullOrEmpty(text))
                 {
-                    MessageBox.Show("Please enter a 6 Digit Number");
+                    MessageBox.Show("Please enter a Station ");
                 }
                 else if (text.Length > 0)
                 {
@@ -87,12 +91,16 @@ namespace WindowsFormsApplication1
         }
         private void save(AMBULANCES new_amb)
         {
+          
+            
             using (AMBULANCES_STAFF db = new AMBULANCES_STAFF())
             {
+
                 foreach (var x in db.AMBULANCES)
                 {
                     if (x.AmbulanceID == new_amb.AmbulanceID)
                     {
+                        x.AmbulanceID = new_amb.AmbulanceID;
                         x.Station = new_amb.Station;
                     }
 
@@ -102,5 +110,6 @@ namespace WindowsFormsApplication1
             }
         }
     }
-
 }
+
+

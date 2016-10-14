@@ -44,12 +44,7 @@ namespace WindowsFormsApplication1
 
                 }
         
-                //use binding source to hold dummy data
-               // BindingSource binding = new BindingSource();
-               // binding.DataSource = new_staff;
-
-                //bind datagridview to binding source
-                //dataGridView1.DataSource = binding;
+               
             }
         }
         #region Windows Form Designer generated code

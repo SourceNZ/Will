@@ -139,6 +139,8 @@ namespace WindowsFormsApplication1
             this.AddNew.TabIndex = 3;
             this.AddNew.Text = "Add New";
             this.AddNew.UseVisualStyleBackColor = true;
+            this.AddNew.Click += new System.EventHandler(this.button2_Click);
+
             // 
             // Form2
             // 

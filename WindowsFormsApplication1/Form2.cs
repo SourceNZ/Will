@@ -73,6 +73,14 @@ namespace WindowsFormsApplication1
             this.Hide();
             
         }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddNewOfficerForm newform = new AddNewOfficerForm();
+            newform.Show();
+            this.Hide();
+
+        }
+        
     }
     
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
@@ -40,7 +41,7 @@ namespace WindowsFormsApplication1
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel1.AutoScroll = true;
-            this.AmbulancePanelTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.AmbulancePanelTextBox1 = new System.Windows.Forms.TextBox();
            
             this.AmbulancePanel1 = new System.Windows.Forms.Panel();
 
@@ -84,7 +85,7 @@ namespace WindowsFormsApplication1
             {
 
                 this.AmbulancePanel1 = new System.Windows.Forms.Panel();
-                this.AmbulancePanelTextBox1 = new System.Windows.Forms.MaskedTextBox();
+                this.AmbulancePanelTextBox1 = new System.Windows.Forms.TextBox();
            
                 this.AmbulancePanel1.Name = "AmbulancePanel1";
                 this.AmbulancePanel1.Size = new System.Drawing.Size(396, 86);
@@ -104,6 +105,7 @@ namespace WindowsFormsApplication1
                 this.AmbulancePanelTextBox1.ReadOnly = true;
                 this.AmbulancePanelTextBox1.Multiline = true;
                 this.AmbulancePanelTextBox1.AutoSize = false;
+                this.AmbulancePanelTextBox1.ScrollBars = ScrollBars.Horizontal;
                 this.AmbulancePanelTextBox1.Size = new System.Drawing.Size(380, 50);
                 this.AmbulancePanelTextBox1.Invalidate();
                 //this.AmbulancePanelTextBox1.Size = new System.Drawing.Size(100, 10);
@@ -184,7 +186,7 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel AmbulancePanel1;
-        private System.Windows.Forms.MaskedTextBox AmbulancePanelTextBox1;
+        private System.Windows.Forms.TextBox AmbulancePanelTextBox1;
   
         private System.Windows.Forms.Button BackButton;
     }

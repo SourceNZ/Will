@@ -42,7 +42,7 @@ namespace WindowsFormsApplication1
                     //need to add ambulances with no staff.
                     if(x.Ambulance != null && !(x.Ambulance.Equals("None")))
                     {
-                        var matchh = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance));
+                        var matchh = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance + " "));
                         //  if the ambulance isnt already in the list, add it
                         if (matchh == null)
                         {
@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1
                       //      ambulances.Insert(ambulances[i].Length, "" + x.OfficerID);
 
                       //  }
-                        var match = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance));
+                        var match = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance + " "));
                         int l = ambulances.IndexOf(match);
                         if (!match.Contains(x.OfficerID.ToString()))
                         {

@@ -39,6 +39,7 @@ namespace WindowsFormsApplication1
             {
                 foreach (var x in db.AMBULANCE_STAFFS)
                 {
+                    //need to add ambulances with no staff.
                     if(x.Ambulance != null && !(x.Ambulance.Equals("None")))
                     {
                         var matchh = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance));
@@ -67,14 +68,27 @@ namespace WindowsFormsApplication1
 
                     }
                 }
-                
-                int o = 0;
-                foreach(var x in ambulances)
+                using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
                 {
-                    //create a new panel for each ambulance, seperate the two parts, ambulance and crew then add them to their respective boxes
-                    Debug.WriteLine(x + "THISSSSSSS " + o);
-                    o++;
+                    foreach(var y in db1.AMBULANCES)
+                    {
+                        var match1 = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(y.AmbulanceID));
+                        int l = ambulances.IndexOf(match1);
+                        if (match1 == null)
+                        {
+                                ambulances.Add(y.AmbulanceID);
+                        }
+                        Debug.WriteLine(y.AmbulanceID + "HEYY ");
+                    }
                 }
+
+                    int o = 0;
+               // foreach(var x in ambulances)
+              //  {
+                    //create a new panel for each ambulance, seperate the two parts, ambulance and crew then add them to their respective boxes
+             //       Debug.WriteLine(x + "THISSSSSSS " + o);
+             //       o++;
+             //   }
                 InitializeComponent(o, ambulances);
                 
 

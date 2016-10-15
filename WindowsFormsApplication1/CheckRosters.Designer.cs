@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 
 namespace WindowsFormsApplication1
@@ -113,6 +114,40 @@ namespace WindowsFormsApplication1
                 string firstElem = array.First();
                 string restOfArray = string.Join(" ", array.Skip(1));
                 Debug.WriteLine(firstElem + "REST: " + restOfArray);
+                string[] rest = restOfArray.Split(' ');
+                int p = rest.Length;
+                Debug.WriteLine(p + "length");
+                //At least one crew member must have Intermediate or Advanced skill
+                if (p < 3)
+                {
+                    this.AmbulancePanelTextBox1.BackColor = Color.Red;
+                }
+                else if(p >= 3 && p < 5)
+                {
+                    // Debug.WriteLine(rest.Contains("Intermediate") + "here");
+                    // Debug.WriteLine(rest.Contains("Advanced") + "here1");  rest.Contains("Intermediate") || rest.Contains("Advanced")
+                    var results = Array.FindAll(rest, s => s.Equals("Advanced") || s.Equals("Intermediate"));
+                    Debug.WriteLine(results + "here1");
+                    if (results != null)
+                    {
+                        this.AmbulancePanelTextBox1.BackColor = Color.Green;
+                    }
+                    else
+                    {
+                        this.AmbulancePanelTextBox1.BackColor = Color.Red;
+                    }
+                    
+                }
+                else if (restOfArray.Length == 0)
+                {
+                    this.AmbulancePanelTextBox1.BackColor =  Color.Red;
+                }
+                else
+                {
+                    this.AmbulancePanelTextBox1.BackColor = Color.Red;
+                }
+
+
                 this.AmbulancePanelTextBox1.Text = firstElem + "                    " + restOfArray;
                 this.AmbulancePanel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
                 this.AmbulancePanel1.Controls.Add(this.AmbulancePanelTextBox1);

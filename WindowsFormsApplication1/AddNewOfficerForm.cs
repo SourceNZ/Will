@@ -90,6 +90,7 @@ namespace WindowsFormsApplication1
                 }
                 else if (text.Length == 6)
                 {
+
                     int x = 0;
                     try
                     {
@@ -100,6 +101,10 @@ namespace WindowsFormsApplication1
                         MessageBox.Show("Please enter a 6 Digit Number");
                     }
                     new_staff1.OfficerID = x;
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a 6 Digit Number");
                 }
             }
 
@@ -135,10 +140,49 @@ namespace WindowsFormsApplication1
 
         private void button2_click(object sender, EventArgs e)
         {
-            save(new_staff1);
-            Form2 frm = new Form2();
-            frm.Show();
-            this.Hide();
+            int p = Validator();
+            if(p == 1)
+            {
+                save(new_staff1);
+                Form2 frm = new Form2();
+                frm.Show();
+                this.Hide();
+            }
+            else
+            {
+                InitializeComponent();
+            }
+            
+        }
+        private int Validator()
+        {
+            int i = 0;
+            string text = FirstnamesBox.Text;
+            if (String.IsNullOrEmpty(text))
+            {
+                MessageBox.Show("Please enter your First Name");
+            }
+            else if (new_staff1.Surname == null)
+            {
+                MessageBox.Show("Please enter your Surname");
+            }
+            else if (new_staff1.OfficerID == Convert.ToInt32("0") )
+            {
+                MessageBox.Show("Please enter a 6 Digit Number");
+            }
+            else if (new_staff1.Ambulance == null)
+            {
+                MessageBox.Show("Please pick none or any ambulance");
+            }
+            else if (new_staff1.SkillLevel == null)
+            {
+                MessageBox.Show("Please pick a skill level");
+            }
+            else
+            {
+                i = 1;
+            }
+            return i;
         }
         private void save(AMBULANCE_STAFF new_staff1)
         {

@@ -146,7 +146,7 @@ namespace WindowsFormsApplication1
             this.OfficerIDBox.Name = "OfficerIDBox";
             this.OfficerIDBox.Size = new System.Drawing.Size(220, 20);
             this.OfficerIDBox.TabIndex = 9;
-            //this.OfficerIDBox.Text = new_staff1.OfficerID.ToString();
+            this.OfficerIDBox.Text = "0";
             this.OfficerIDBox.KeyDown += new KeyEventHandler(OfficerIDBox_changed);
 
             // 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
@@ -45,6 +46,7 @@ namespace WindowsFormsApplication1
              
             }
         }
+        
 
         #region Windows Form Designer generated code
 
@@ -54,6 +56,7 @@ namespace WindowsFormsApplication1
         /// </summary>
         private void InitializeComponent()
         {
+            
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -115,10 +118,12 @@ namespace WindowsFormsApplication1
             this.NewButton.TabIndex = 3;
             this.NewButton.Text = "Add New";
             this.NewButton.UseVisualStyleBackColor = true;
-            this.NewButton.Click += new System.EventHandler(this.SaveButton_Click); 
+            this.NewButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // Form3
             // 
+           
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(538, 431);

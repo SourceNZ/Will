@@ -128,14 +128,24 @@ namespace WindowsFormsApplication1
                 {
                     // Debug.WriteLine(rest.Contains("Intermediate") + "here");
                     // Debug.WriteLine(rest.Contains("Advanced") + "here1");  rest.Contains("Intermediate") || rest.Contains("Advanced")
-                    var results = Array.FindAll(rest, s => s.Equals("Advanced") || s.Equals("Intermediate"));
-                    Debug.WriteLine(results + "here1");
-                    if (results != null)
+                    int w = 0;
+                    //seems to accept anything as long as there are 2 people
+                    foreach (string y in rest)
                     {
+                        if (y.Contains("Advanced") || y.Contains("Intermediate"))
+                        {
+                           w = 1;
+                        }
+                       
+                    }
+                    if (w != 0 )
+                    {
+                    
                         this.AmbulancePanelTextBox1.BackColor = Color.Green;
                     }
-                    else
+                    else 
                     {
+                       
                         this.AmbulancePanelTextBox1.BackColor = Color.Red;
                     }
                     

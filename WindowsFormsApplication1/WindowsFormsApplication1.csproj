@@ -75,6 +75,12 @@
     <Compile Include="AmbulanceEdit.Designer.cs">
       <DependentUpon>AmbulanceEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="CheckRosters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CheckRosters.Designer.cs">
+      <DependentUpon>CheckRosters.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Class2.cs" />
     <Compile Include="Form1.cs">
@@ -105,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AmbulanceEdit.resx">
       <DependentUpon>AmbulanceEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CheckRosters.resx">
+      <DependentUpon>CheckRosters.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

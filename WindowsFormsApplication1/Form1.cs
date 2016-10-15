@@ -62,7 +62,9 @@ namespace WindowsFormsApplication1
 
         private void RosterButton_Click(object sender, EventArgs e)
         {
-            //Ambulances button
+            CheckRosters t = new CheckRosters();
+            t.Show();
+            this.Hide();            
         }
 
        

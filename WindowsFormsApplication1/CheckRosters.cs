@@ -46,7 +46,7 @@ namespace WindowsFormsApplication1
                         if (matchh == null)
                         {
                            
-                            ambulances.Add(x.Ambulance + " " + x.OfficerID + " ");
+                            ambulances.Add(x.Ambulance + " " + x.OfficerID + "(" + x.SkillLevel + ")" + " ");
                            // int i = ambulances.IndexOf(x.Ambulance);
                            // Debug.WriteLine("TEAPARTY" + i);
                         }
@@ -62,8 +62,9 @@ namespace WindowsFormsApplication1
                         int l = ambulances.IndexOf(match);
                         if (!match.Contains(x.OfficerID.ToString()))
                         {
-                            ambulances[l] += x.OfficerID + " ";
+                            ambulances[l] +=  x.OfficerID + "(" + x.SkillLevel + ")" + " ";
                         }
+
                     }
                 }
                 

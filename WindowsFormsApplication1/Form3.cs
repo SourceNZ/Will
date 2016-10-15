@@ -25,8 +25,15 @@ namespace WindowsFormsApplication1
             newform.Show();
             this.Hide();
         }
+        //add add new button that essentially duplicates ambulance edit
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            AmbulanceAdd newform = new AmbulanceAdd();
+            newform.Show();
+            this.Hide();
+        }
 
-      
+
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             int j = e.ColumnIndex;

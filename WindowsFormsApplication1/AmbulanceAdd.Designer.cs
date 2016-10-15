@@ -5,8 +5,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    partial class AmbulanceEdit
+    partial class AmbulanceAdd
     {
+        private AMBULANCES new_amb = new AMBULANCES();
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -31,7 +32,7 @@ namespace WindowsFormsApplication1
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(AMBULANCES new_amb)
+        private void InitializeComponent()
         {
 
             this.AmbulanceOfficerLabel = new System.Windows.Forms.Label();
@@ -42,7 +43,7 @@ namespace WindowsFormsApplication1
             this.AmbulanceIDBox = new System.Windows.Forms.TextBox();
             this.StationBox = new System.Windows.Forms.TextBox();
             this.CrewBox = new System.Windows.Forms.TextBox();
-            
+
 
 
             this.Back = new System.Windows.Forms.Button();
@@ -132,7 +133,7 @@ namespace WindowsFormsApplication1
                 {
                     if (x.Ambulance == new_amb.AmbulanceID)
                     {
-                        crew += x.FirstName  +" " + x.Surname + " ";
+                        crew += x.FirstName + x.Surname + " ";
                     }
 
                 }
@@ -142,11 +143,11 @@ namespace WindowsFormsApplication1
             this.CrewBox.Name = "SurnameBox";
             this.CrewBox.Size = new System.Drawing.Size(220, 50);
             this.CrewBox.TabIndex = 8;
-        
+
             this.CrewBox.ReadOnly = true;
 
-           
-         
+
+
             // 
             // Back
             // 
@@ -172,8 +173,8 @@ namespace WindowsFormsApplication1
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 413);
-  
-     
+
+
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FirstnamesLabel);
             this.Controls.Add(this.OfficerNameLAbel);
@@ -184,7 +185,7 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.CrewBox);
             this.Controls.Add(this.AmbulanceIDBox);
             this.Controls.Add(this.CrewLabel);
-            
+
             this.Name = "AmbulanceEdit";
             this.Text = "AmbulanceEdit";
             this.ResumeLayout(false);
@@ -205,9 +206,9 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.TextBox StationBox;
         private System.Windows.Forms.TextBox CrewBox;
         private System.Windows.Forms.TextBox AmbulanceIDBox;
-        
-            
-       
+
+
+
 
     }
 }

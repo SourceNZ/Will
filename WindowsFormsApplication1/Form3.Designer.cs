@@ -115,6 +115,7 @@ namespace WindowsFormsApplication1
             this.NewButton.TabIndex = 3;
             this.NewButton.Text = "Add New";
             this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.Click += new System.EventHandler(this.SaveButton_Click); 
             // 
             // Form3
             // 

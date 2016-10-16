@@ -158,7 +158,7 @@ namespace WindowsFormsApplication1
         {
             int i = 0;
             string text = FirstnamesBox.Text;
-            if (String.IsNullOrEmpty(text))
+            if (String.IsNullOrEmpty(text) && text.Length > 0)
             {
                 MessageBox.Show("Please enter your First Name");
             }
@@ -166,7 +166,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Please enter your Surname");
             }
-            else if (new_staff1.OfficerID == Convert.ToInt32("0") )
+            else if (new_staff1.OfficerID == Convert.ToInt32("0") && (new_staff1.OfficerID.ToString()).Length == 6)
             {
                 MessageBox.Show("Please enter a 6 Digit Number");
             }
@@ -188,9 +188,27 @@ namespace WindowsFormsApplication1
         {
             using (AMBULANCES_STAFF_CONTEXT db = new AMBULANCES_STAFF_CONTEXT())
             {
+                int i = 0;
+                foreach (var p in db.AMBULANCE_STAFFS)
+                {
+                    if (p.OfficerID == new_staff1.OfficerID)
+                    {
+                        MessageBox.Show("Officer Already Exists. Please Specify a different Officer ID");
+                        i = 1;
+                        Validator();
+                    }
 
-                db.AMBULANCE_STAFFS.Add(new_staff1);
-                db.SaveChanges();
+                }
+                if (i == 0)
+                {
+                    db.AMBULANCE_STAFFS.Add(new_staff1);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    InitializeComponent();
+                }
+              
             }
         }
     }

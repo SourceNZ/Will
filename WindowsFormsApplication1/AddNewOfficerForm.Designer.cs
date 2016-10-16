@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -25,7 +27,10 @@ namespace WindowsFormsApplication1
             }
             base.Dispose(disposing);
         }
-
+        public static string Padding(string input)
+        {
+            return Regex.Replace(input, "[0-9]+", match => match.Value.PadLeft(10, '0'));
+        }
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -155,16 +160,7 @@ namespace WindowsFormsApplication1
             this.SkillLevelBox.Items.Add("Basic");
             this.SkillLevelBox.Items.Add("Intermediate");
             this.SkillLevelBox.Items.Add("Advanced");
-          //  try
-         //   {
-          //      this.SkillLevelBox.SelectedIndex = SkillLevelBox.FindString(new_staff1.SkillLevel.ToString());
-          //  }
-          //  catch (Exception)
-           // {
-//
-           // }
 
-            //Debug.WriteLine(new_staff1.OfficerID.ToString() + "HEY HO");
 
             this.SkillLevelBox.FormattingEnabled = true;
             this.SkillLevelBox.Location = new System.Drawing.Point(167, 204);
@@ -177,16 +173,17 @@ namespace WindowsFormsApplication1
             // AmbulanceBox
             // 
             this.AmbulanceBox.Items.Add("None");
+            List<string> hey = new List<string>();
             using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
             {
                 foreach (var y in db1.AMBULANCES)
                 {
-                    this.AmbulanceBox.Items.Add(y.AmbulanceID);
+                    hey.Add(y.AmbulanceID);
+                     //this.AmbulanceBox.Items.Add(y.AmbulanceID);
                 }
             }
             if (new_staff1.Ambulance != null)
             {
-
 
                 if (!new_staff1.Ambulance.Equals("None"))
                 {
@@ -198,6 +195,14 @@ namespace WindowsFormsApplication1
                 }
             }
 
+        
+            var results = hey.OrderBy(x => Padding(x));
+            foreach (var u in results)
+            {
+                this.AmbulanceBox.Items.Add(u);
+               
+            }
+            
             this.AmbulanceBox.FormattingEnabled = true;
             this.AmbulanceBox.Location = new System.Drawing.Point(167, 244);
             this.AmbulanceBox.Name = "AmbulanceBox";

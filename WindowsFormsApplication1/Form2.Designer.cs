@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
@@ -137,6 +138,7 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.Back);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
+            this.BackColor = Color.LightSkyBlue;
             this.Name = "Form2";
             this.Text = "Ambulance Officer Table";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -180,7 +180,7 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.BackButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-       
+            this.BackColor = Color.LightSkyBlue;
             this.Name = "CheckRosters";
             this.Text = "CheckRosters";
             this.panel1.ResumeLayout(false);

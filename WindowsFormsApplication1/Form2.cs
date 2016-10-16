@@ -73,7 +73,7 @@ namespace WindowsFormsApplication1
 
         public void button1_Click(object sender, EventArgs e)
         {
-            Form1 newform = new Form1();
+            MainMenu newform = new MainMenu();
             newform.Show();
             this.Hide();
             

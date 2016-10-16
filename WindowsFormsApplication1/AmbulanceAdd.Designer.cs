@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -174,7 +175,7 @@ namespace WindowsFormsApplication1
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 413);
 
-
+            this.BackColor = Color.LightSkyBlue;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.FirstnamesLabel);
             this.Controls.Add(this.OfficerNameLAbel);

@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
         private void BackButton_Click(object sender, EventArgs e)
         {
             test();
-            Form1 newform = new Form1();
+            MainMenu newform = new MainMenu();
             newform.Show();
             this.Hide();
 

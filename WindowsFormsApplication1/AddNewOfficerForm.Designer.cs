@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -235,7 +236,7 @@ namespace WindowsFormsApplication1
             this.AddNew.UseVisualStyleBackColor = true;
             this.AddNew.Click += new System.EventHandler(this.button2_click);
 
-
+            this.BackColor = Color.LightSkyBlue;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(485, 413);

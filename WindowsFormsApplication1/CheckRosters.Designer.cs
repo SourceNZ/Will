@@ -161,6 +161,7 @@ namespace WindowsFormsApplication1
 
 
                 this.AmbulancePanelTextBox1.Text = firstElem + "                    " + restOfArray;
+                this.AmbulancePanelTextBox1.ReadOnly = true;
                 this.AmbulancePanel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
                 this.AmbulancePanel1.Controls.Add(this.AmbulancePanelTextBox1);
                 this.panel1.Controls.Add(this.AmbulancePanel1);

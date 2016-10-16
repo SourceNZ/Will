@@ -190,7 +190,7 @@ namespace WindowsFormsApplication1
             {
                 int i = 0;
                 foreach (var p in db.AMBULANCE_STAFFS)
-                {
+                { 
                     if (p.OfficerID == new_staff1.OfficerID)
                     {
                         MessageBox.Show("Officer Already Exists. Please Specify a different Officer ID");

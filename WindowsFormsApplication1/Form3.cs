@@ -33,13 +33,39 @@ namespace WindowsFormsApplication1
             newform.Show();
             this.Hide();
         }
+
+        private void frmDGV_Load()
+        {
+            using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
+            {
+
+                var new_staff = new AMBULANCE_STAFF();
+
+              
+                foreach (var y in db1.AMBULANCES)
+                {
+                    this.dataGridView2.Rows.Add(y.AmbulanceID, y.Station);
+                    this.lstStaff.Add(y);
+
+                }
+                foreach (var y in lstStaff)
+                {
+                    Debug.WriteLine("ID" + y.AmbulanceID, y.Station);
+
+                }
+
+
+            }
         
-    
+        }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
         {
+            
             if (e.RowIndex >= 0 && e.RowIndex < lstStaff.Count)
             {
+
                 int j = e.ColumnIndex;
                 int i = e.RowIndex;
 
@@ -48,7 +74,7 @@ namespace WindowsFormsApplication1
                     int l = 0;
 
                     //dummy data
-                    List<AMBULANCES> lstStaff = new List<AMBULANCES>();
+                    //List<AMBULANCES> lstStaff = new List<AMBULANCES>();
                     foreach (var x in db.AMBULANCES)
                     {
                         if (l == i)

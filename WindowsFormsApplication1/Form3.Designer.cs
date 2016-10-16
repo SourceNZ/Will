@@ -23,29 +23,7 @@ namespace WindowsFormsApplication1
             }
             base.Dispose(disposing);
         }
-        private void frmDGV_Load()
-        {
-            using (AMBULANCES_STAFF db1 = new AMBULANCES_STAFF())
-            {
-
-                 var new_staff = new AMBULANCE_STAFF();
-               
-                List<AMBULANCES> lstStaff = new List<AMBULANCES>();
-                foreach (var y in db1.AMBULANCES)
-                {
-                    this.dataGridView2.Rows.Add(y.AmbulanceID, y.Station );
-                    lstStaff.Add(y);
-
-                }
-                foreach (var y in lstStaff)
-                {
-                    Debug.WriteLine("ID" + y.AmbulanceID, y.Station);
-
-                }
-                
-             
-            }
-        }
+       
 
 
         #region Windows Form Designer generated code

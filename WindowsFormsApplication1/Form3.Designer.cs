@@ -42,11 +42,11 @@ namespace WindowsFormsApplication1
                     Debug.WriteLine("ID" + y.AmbulanceID, y.Station);
 
                 }
-
+                
              
             }
         }
-        
+
 
         #region Windows Form Designer generated code
 
@@ -54,6 +54,8 @@ namespace WindowsFormsApplication1
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        /// 
+        // NEED TO GET RID OF SORTING and validate ambulance creation
         private void InitializeComponent()
         {
             
@@ -86,6 +88,7 @@ namespace WindowsFormsApplication1
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.Size = new System.Drawing.Size(462, 288);
             this.dataGridView2.TabIndex = 1;
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // ID

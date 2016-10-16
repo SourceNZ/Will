@@ -120,6 +120,7 @@ namespace WindowsFormsApplication1
             this.StationBox.Size = new System.Drawing.Size(220, 20);
             this.StationBox.TabIndex = 8;
             this.StationBox.Text = new_amb.Station;
+            
             this.StationBox.KeyDown += new KeyEventHandler(StationBox_changed);
 
             // 

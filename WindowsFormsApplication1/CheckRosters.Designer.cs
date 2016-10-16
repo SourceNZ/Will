@@ -197,7 +197,6 @@ namespace WindowsFormsApplication1
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel AmbulancePanel1;
         private System.Windows.Forms.TextBox AmbulancePanelTextBox1;
-  
         private System.Windows.Forms.Button BackButton;
     }
 }

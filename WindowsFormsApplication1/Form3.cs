@@ -13,6 +13,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Form3 : Form
     {
+        List<AMBULANCES> lstStaff = new List<AMBULANCES>();
         public Form3()
         {
             InitializeComponent();
@@ -32,43 +33,47 @@ namespace WindowsFormsApplication1
             newform.Show();
             this.Hide();
         }
-
+        
+    
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            int j = e.ColumnIndex;
-            int i = e.RowIndex;
-            
-            using (AMBULANCES_STAFF db = new AMBULANCES_STAFF())
+            if (e.RowIndex >= 0 && e.RowIndex < lstStaff.Count)
             {
-                int l = 0;
-                
-                //dummy data
-                List<AMBULANCES> lstStaff = new List<AMBULANCES>();
-                foreach (var x in db.AMBULANCES)
+                int j = e.ColumnIndex;
+                int i = e.RowIndex;
+
+                using (AMBULANCES_STAFF db = new AMBULANCES_STAFF())
                 {
-                    if (l == i)
+                    int l = 0;
+
+                    //dummy data
+                    List<AMBULANCES> lstStaff = new List<AMBULANCES>();
+                    foreach (var x in db.AMBULANCES)
                     {
-                        var new_amb = new AMBULANCES();
-                        new_amb.AmbulanceID = x.AmbulanceID;
-                        new_amb.Station = x.Station;
-                        AmbulanceEdit newfrm = new AmbulanceEdit(new_amb);
-                        newfrm.Show();
-                        this.Hide();
+                        if (l == i)
+                        {
+                            var new_amb = new AMBULANCES();
+                            new_amb.AmbulanceID = x.AmbulanceID;
+                            new_amb.Station = x.Station;
+                            AmbulanceEdit newfrm = new AmbulanceEdit(new_amb);
+                            newfrm.Show();
+                            this.Hide();
 
+                        }
+                        this.dataGridView2.Rows.Add(x.AmbulanceID + " " + x.Station);
+                        lstStaff.Add(x);
+                        l++;
                     }
-                    this.dataGridView2.Rows.Add(x.AmbulanceID + " " + x.Station);
-                    lstStaff.Add(x);
-                    l++;
+
+
+                    //use binding source to hold dummy data
+                    // BindingSource binding = new BindingSource();
+                    // binding.DataSource = new_staff;
+
+                    //bind datagridview to binding source
+                    //dataGridView1.DataSource = binding;
                 }
-              
-
-                //use binding source to hold dummy data
-                // BindingSource binding = new BindingSource();
-                // binding.DataSource = new_staff;
-
-                //bind datagridview to binding source
-                //dataGridView1.DataSource = binding;
             }
 
         }

@@ -20,7 +20,6 @@ namespace WindowsFormsApplication1
             
         }
 
-      
 
         private void BackButton_Click(object sender, EventArgs e)
         {
@@ -48,17 +47,9 @@ namespace WindowsFormsApplication1
                         {
                            
                             ambulances.Add(x.Ambulance + " " + x.OfficerID + "(" + x.SkillLevel + ")" + " ");
-                           // int i = ambulances.IndexOf(x.Ambulance);
-                           // Debug.WriteLine("TEAPARTY" + i);
+                      
                         }
-                       // if it is in the list then find where it is and add the persons name to it
-                      //     else
-                       //   {
-                       //     Debug.WriteLine("TEAPARTY");
-                       //     int i = ambulances.IndexOf(x.Ambulance);
-                      //      ambulances.Insert(ambulances[i].Length, "" + x.OfficerID);
-
-                      //  }
+              
                         var match = ambulances.FirstOrDefault(stringToCheck => stringToCheck.Contains(x.Ambulance + " "));
                         int l = ambulances.IndexOf(match);
                         if (!match.Contains(x.OfficerID.ToString()))
@@ -83,14 +74,8 @@ namespace WindowsFormsApplication1
                 }
 
                     int o = 0;
-               // foreach(var x in ambulances)
-              //  {
-                    //create a new panel for each ambulance, seperate the two parts, ambulance and crew then add them to their respective boxes
-             //       Debug.WriteLine(x + "THISSSSSSS " + o);
-             //       o++;
-             //   }
+
                 InitializeComponent(o, ambulances);
-                
 
 
             }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -24,36 +26,14 @@ namespace WindowsFormsApplication1
             }
             base.Dispose(disposing);
         }
-        private void frmDGV_Load()
-        {
-            using (AMBULANCES_STAFF_CONTEXT db = new AMBULANCES_STAFF_CONTEXT())
-            {
-
-                var new_staff = new AMBULANCE_STAFF();
-                //dummy data
-                List<AMBULANCE_STAFF> lstStaff = new List<AMBULANCE_STAFF>();
-                foreach (var x in db.AMBULANCE_STAFFS)
-                {
-                    this.dataGridView1.Rows.Add(x.OfficerID, x.FirstName + " " + x.Surname, x.SkillLevel, x.Ambulance);
-                    lstStaff.Add(x);
-
-                }
-                foreach (var x in lstStaff)
-                {
-                    Debug.WriteLine("ID" + x.OfficerID + x.FirstName + " " + x.Surname + x.SkillLevel + x.Ambulance);
-
-                }
-        
-               
-            }
-        }
+      
         #region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -84,13 +64,16 @@ namespace WindowsFormsApplication1
             this.OfficerName,
             this.Skill,
             this.Ambulance});
+       
             this.dataGridView1.Location = new System.Drawing.Point(31, 60);
             this.dataGridView1.MaximumSize = new System.Drawing.Size(800, 400);
             this.dataGridView1.MinimumSize = new System.Drawing.Size(443, 244);
             this.dataGridView1.Name = "dataGridView1";
+         
             this.dataGridView1.Size = new System.Drawing.Size(453, 261);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+      
             // 
             // Back
             // 
@@ -117,28 +100,36 @@ namespace WindowsFormsApplication1
             this.ID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+      
+            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // OfficerName
             // 
             this.OfficerName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.OfficerName.HeaderText = "Name";
             this.OfficerName.Name = "OfficerName";
+            this.OfficerName.ReadOnly = true;
+            this.OfficerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Skill
             // 
             this.Skill.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Skill.HeaderText = "Skill";
             this.Skill.Name = "Skill";
+            this.Skill.ReadOnly = true;
+            this.Skill.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Ambulance
             // 
             this.Ambulance.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Ambulance.HeaderText = "Ambulance";
             this.Ambulance.Name = "Ambulance";
+            this.Ambulance.ReadOnly = true;
+            this.Ambulance.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Form2
             // 
-            
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(506, 424);
@@ -147,7 +138,7 @@ namespace WindowsFormsApplication1
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Name = "Form2";
-            this.Text = "Form2";
+            this.Text = "Ambulance Officer Table";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -156,14 +147,14 @@ namespace WindowsFormsApplication1
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Names;
-        private Button Back;
-        private Button AddNew;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn OfficerName;
-        private DataGridViewTextBoxColumn Skill;
-        private DataGridViewTextBoxColumn Ambulance;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridViewTextBoxColumn Names;
+        public Button Back;
+        public Button AddNew;
+        public DataGridViewTextBoxColumn ID;
+        public DataGridViewTextBoxColumn OfficerName;
+        public DataGridViewTextBoxColumn Skill;
+        public DataGridViewTextBoxColumn Ambulance;
     }
 }

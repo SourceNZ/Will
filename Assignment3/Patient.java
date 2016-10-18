@@ -4,11 +4,11 @@ import java.awt.Point;
 
 public class Patient {
 	protected  String id;
-	protected  String location;
 	protected  String x_location;
 	protected  String y_location;
 	protected  String status;
 	protected  String ambulance;
+	protected  String location = ("(" + x_location + ", " + y_location + ")");
 	//int i; //selected patient, if not an already existing patient then it is set to the next unused row.
 	public Patient(){
 		this.id = "";

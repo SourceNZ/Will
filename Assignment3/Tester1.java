@@ -26,8 +26,9 @@ public class Tester1{
   public JFrame mainFrame;
   private ArrayList<Patient> PatientList;
   private ArrayList<Ambulance> AmbulanceList;
- private List<Point> stations = new ArrayList<Point>();
- private List<Point> ambulances = new ArrayList<Point>();
+  private List<Point> stations = new ArrayList<Point>();
+  private List<Point> ambulances = new ArrayList<Point>();
+  private List<Point> patients = new ArrayList<Point>();
   
   public Tester1(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList)
   {
@@ -38,16 +39,14 @@ public class Tester1{
 		this.stations.add(Greenfields);
 		this.stations.add(Bluelane);
 		this.stations.add(Redvill);
-		
 
-		for(Ambulance a : AmbulanceList){
-			if(a.status.equals("At Station")){
-			 this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
-			}
-		}
+	
 	  this.PatientList = PatientList;
 	  this.AmbulanceList = AmbulanceList;
-	  Tester(PatientList, AmbulanceList,ambulances, stations);
+	  
+	Tester(PatientList, AmbulanceList,ambulances, stations);
+
+	  
   }
 
   public static void main(String[] args)  {
@@ -141,33 +140,78 @@ public class Tester1{
 
 //		At station: check if there is a new patient to pick up, if so,
 //		assign the closest unassigned patient to the ambulance and change the status to ‘Responding’. Otherwise, do nothing.		
-		
+	  for(Patient pp : PatientList){
+			if(pp.status.equals("Pending")){
+				this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+				}
+			else{
+				this.patients.remove(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+			}
+		}
+	 //do{
+	  //	 while(!patients.isEmpty());
+		System.out.println("BACK AT THE START");
+		 
+	
+	 this.ambulances = ambulances;
+	 this.AmbulanceList = ambulanceList2;
+	 this.PatientList = patientList2;
+	 this.stations = stations;
+//	 for(Ambulance a : AmbulanceList){
+//			if(a.status.equals("At Station")){
+//			 this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+//			}
+//			else{
+//				this.ambulances.remove(a);
+//			}
+//		}
+//
+//	  for(Patient pp : PatientList){
+//		if(pp.status.equals("Pending")){
+//			this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+//			}
+//		
+//	  else{this.patients.remove(pp);
+//		  
+//	  }}
+//	  for(Ambulance ab : AmbulanceList){
+//		  if(ab.status.equals("At Station")){
+//				 System.out.println(ab);;
+//				
+//			}
+//	  }
+//		
 	 
-		
-do{
-	for(Ambulance a : ambulanceList2){
+		for(Ambulance a : AmbulanceList){
+			if(a.status.equals("At Station")){
+			 this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+			}
+			else{
+				this.ambulances.remove(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+			}
+		}
+		for(Patient pp : PatientList){
+			if(pp.status.equals("Pending")){
+				this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+				}
+			else{
+				this.patients.remove(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+			}
+		}
+		  
+	 
+	for(Ambulance a : AmbulanceList){
 		Point amb = new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
 		if(a.status.equals("At Station")){
-			switch (a.location) {
-            case "(50, 50)":  System.out.print ("HOSPITAL - ");
-                     break;
-            case "(10, 0)":  System.out.print ("Greenfields - ");
-                     break;
-            case "(30, 80)":  System.out.print("Bluelane - ");
-            		break;
-            case "(90, 20)" : System.out.print ("Redvill - ");
-            		break;
-            default : System.out.println ("NO STATION - " + a.location);
-            		break;
-		}		
-			for(Patient p : patientList2){
-			Point pat = new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
+			this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+			
+			for(Patient p : PatientList){
 				if(p.status.equals("Pending")){
-					Point closest = FindNearestPoints.main(pat, ambulances);
 					
-					//find the closest patient.
-					if(closest.equals(amb)){
-						
+					Point pat = new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
+					Point closest1 = FindNearestPoints.main(pat, this.ambulances);
+					
+					if(closest1.equals(amb)){
 						p.status = "Assigned";
 						a.status = "Responding";
 						a.patient = p.id;
@@ -175,23 +219,46 @@ do{
 						System.out.println(a.id + " with status (" + a.status  + ") is picking up Patient " + p.id + " with status ("+ p.status+") ..." + a.location + p.location);
 						Responding(p, a, stations);
 						this.ambulances = ambulances;
+						System.out.println("BREAK!!!");
+//						break;	
 						
-						break;	
 					}
 					
 				}
 			}
 		}
 	}
+	 for(Ambulance ab : AmbulanceList){
+		  if(ab.status.equals("At Station")){
+				 System.out.println(ab);;
+				
+			}
+	  }
+
+	  for(Patient pp : PatientList){
+		if(pp.status.equals("Pending")){
+			 System.out.println(pp);
+		}
+	  }
+	  
 	System.out.println("All Ambulances Assigned!");
+	 
 
 
+  
 }
-while(!ambulances.isEmpty());
-		
-
-	
-}
+//	switch (a.location) {
+//    case "(50, 50)":  System.out.print ("HOSPITAL - ");
+//             break;
+//    case "(10, 0)":  System.out.print ("Greenfields - ");
+//             break;
+//    case "(30, 80)":  System.out.print("Bluelane - ");
+//    		break;
+//    case "(90, 20)" : System.out.print ("Redvill - ");
+//    		break;
+//    default : System.out.println ("NO STATION - " + a.location);
+//    		break;
+//}	
   private void Responding(Patient p, Ambulance a, List<Point> stations ) {
 		//‘Responding’: move the ambulance towards the assigned patient by four moves. 
 		//If the ambulance reaches the patient, change the status to ‘At scene’.
@@ -269,10 +336,7 @@ while(!ambulances.isEmpty());
 	       	} catch(InterruptedException ex) {
 	    	    Thread.currentThread().interrupt();
 	    	}
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-		
+
 	    if (rect.contains(p3))
 	     {
 	    	a.setX_location("50");
@@ -294,6 +358,7 @@ while(!ambulances.isEmpty());
 	    	//If the ambulance reaches the station, change the status to ‘At station’.
 	    	if(a.status == "Returning"){
 	    		Point pat = new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
+	    		
 	    		Point closest = FindNearestPoints.main(pat, stations);
 	    		System.out.println(a.id + " with status (" + a.status  + ") is going to station " + closest+ " ..." );
 	    		Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
@@ -321,12 +386,14 @@ while(!ambulances.isEmpty());
 	    		if(rect1.contains(p4)){
 	    			
 	    			System.out.println(a.id + " with status (" + a.status  + ") IS AT STATION " +  stat + " ..." );
-		    		ambulances.add(new Point(test4.intValue(),test5.intValue()));
+	    			a.status = "At Station";
+		    		//ambulances.add(new Point(test4.intValue(),test5.intValue()));
 		    		this.ambulances = ambulances;
+		    		
 	    		}
 	    		
 	     }
-	   
+	    	
 	    System.out.println();
 	
 	     }

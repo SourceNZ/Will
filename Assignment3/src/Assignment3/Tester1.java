@@ -144,7 +144,7 @@ public class Tester1{
 		
 	 
 		
-do{
+//do{
 	for(Ambulance a : ambulanceList2){
 		Point amb = new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
 		if(a.status.equals("At Station")){
@@ -161,13 +161,11 @@ do{
             		break;
 		}		
 			for(Patient p : patientList2){
-			Point pat = new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
+			
 				if(p.status.equals("Pending")){
+					Point pat = new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
 					Point closest = FindNearestPoints.main(pat, ambulances);
-					
-					//find the closest patient.
 					if(closest.equals(amb)){
-						
 						p.status = "Assigned";
 						a.status = "Responding";
 						a.patient = p.id;
@@ -175,7 +173,6 @@ do{
 						System.out.println(a.id + " with status (" + a.status  + ") is picking up Patient " + p.id + " with status ("+ p.status+") ..." + a.location + p.location);
 						Responding(p, a, stations);
 						this.ambulances = ambulances;
-						
 						break;	
 					}
 					
@@ -186,9 +183,9 @@ do{
 	System.out.println("All Ambulances Assigned!");
 
 
-}
-while(!ambulances.isEmpty());
-		
+//}
+//while(!ambulances.isEmpty());
+//		
 
 	
 }
@@ -269,10 +266,7 @@ while(!ambulances.isEmpty());
 	       	} catch(InterruptedException ex) {
 	    	    Thread.currentThread().interrupt();
 	    	}
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-//		p3.setLocation(p3.getX() + coeff1*deltaX1, p3.getY() + coeff1*deltaY1);
-		
+
 	    if (rect.contains(p3))
 	     {
 	    	a.setX_location("50");
@@ -321,8 +315,10 @@ while(!ambulances.isEmpty());
 	    		if(rect1.contains(p4)){
 	    			
 	    			System.out.println(a.id + " with status (" + a.status  + ") IS AT STATION " +  stat + " ..." );
-		    		ambulances.add(new Point(test4.intValue(),test5.intValue()));
+	    			a.status = "At Station";
+		    		//ambulances.add(new Point(test4.intValue(),test5.intValue()));
 		    		this.ambulances = ambulances;
+		    		
 	    		}
 	    		
 	     }

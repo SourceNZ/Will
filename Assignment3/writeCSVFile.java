@@ -27,8 +27,8 @@ public class writeCSVFile   {
 					buffer.append(patient.getY_location() + ",");
 
 					buffer.append("\"" + patient.getStatus() + "\""+ ",");
-					if(patient.getambulance() == null || patient.getambulance() == "None" || patient.getambulance().equals(" ") ){
-						buffer.append(" "+ "\n");
+					if(patient.getambulance() == null || patient.getambulance() == "None" || patient.getambulance().equals("") ){
+						buffer.append(""+ "\n");
 					}
 					else {
 						buffer.append(patient.getambulance() + "\n");

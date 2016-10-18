@@ -25,8 +25,8 @@ public class writeCSVFileAmbulance  {
 					buffer.append(Ambulance.getX_location() + ",");
 					buffer.append(Ambulance.getY_location() + ",");
 					buffer.append(Ambulance.getStatus() + ",");
-					if(Ambulance.getpatient() == null || Ambulance.getpatient() == "None" || Ambulance.getpatient().equals(" ")){
-						buffer.append(" "+ "\n");
+					if(Ambulance.getpatient() == null || Ambulance.getpatient() == "None" || Ambulance.getpatient().equals("")){
+						buffer.append(""+ "\n");
 					}
 					else {
 						buffer.append(Ambulance.getpatient() + "\n");

@@ -6,8 +6,9 @@ public class Ambulance
   protected String x_location;
   protected String y_location;
   protected String status;
-  protected String location;
+ // protected String location;
   protected String patient;
+  protected  String location = ("(" + x_location + ", " + y_location + ")");
 
   // int i; //selected patient, if not an already existing patient then it is set to the next unused row.
   public Ambulance()

@@ -6,20 +6,20 @@ import java.awt.geom.Point2D;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
 import javax.swing.JFrame;
+
+
+/*   problems
+ *   values are not changing when setX_location is called
+ *   need to make it remove ambulances from the list if they have a passenger, problem is that multiple ambulances can be at one station at a time.
+	 
+	 
+	 
+	 
+	 
+ */
 
 
 public class Tester1{
@@ -32,7 +32,6 @@ public class Tester1{
   
   public Tester1(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList)
   {
-		Point hospital = new Point(50, 50);
 		Point Greenfields = new Point(10, 0);
 		Point Bluelane = new Point(30, 80);
 		Point Redvill = new Point(90, 20);
@@ -44,7 +43,7 @@ public class Tester1{
 	  this.PatientList = PatientList;
 	  this.AmbulanceList = AmbulanceList;
 	  
-	Tester(PatientList, AmbulanceList,ambulances, stations);
+	Tester(this.PatientList, this.AmbulanceList, stations);
 
 	  
   }
@@ -77,7 +76,7 @@ public class Tester1{
 	    }
 	 
 	 Tester1 menu = new Tester1(PatientList, AmbulanceList);
-    menu.prepareGUI();
+  
     
   }
   
@@ -128,28 +127,16 @@ public class Tester1{
 	      } // end of Catch
 	      return Values;
 	      
-	    }// end of ReadFile method
-	  }// end of CSVFile class
+	    }
+	  }
 
-  private void prepareGUI()
-  {
-
-
-  }
-  public void Tester(ArrayList<Patient> patientList2, ArrayList<Ambulance> ambulanceList2, List<Point> ambulances, List<Point> stations) {
+  public void Tester(ArrayList<Patient> patientList2, ArrayList<Ambulance> ambulanceList2, List<Point> stations) {
 
 //		At station: check if there is a new patient to pick up, if so,
 //		assign the closest unassigned patient to the ambulance and change the status to ‘Responding’. Otherwise, do nothing.		
-	  for(Patient pp : PatientList){
-			if(pp.status.equals("Pending")){
-				this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
-				}
-			else{
-				this.patients.remove(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
-			}
-		}
-	 //do{
-	  //	 while(!patients.isEmpty());
+	
+	 do{
+	  //	 
 		System.out.println("BACK AT THE START");
 		 
 	
@@ -157,58 +144,34 @@ public class Tester1{
 	 this.AmbulanceList = ambulanceList2;
 	 this.PatientList = patientList2;
 	 this.stations = stations;
-//	 for(Ambulance a : AmbulanceList){
-//			if(a.status.equals("At Station")){
-//			 this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
-//			}
-//			else{
-//				this.ambulances.remove(a);
-//			}
-//		}
-//
-//	  for(Patient pp : PatientList){
-//		if(pp.status.equals("Pending")){
-//			this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
-//			}
-//		
-//	  else{this.patients.remove(pp);
-//		  
-//	  }}
-//	  for(Ambulance ab : AmbulanceList){
-//		  if(ab.status.equals("At Station")){
-//				 System.out.println(ab);;
-//				
-//			}
-//	  }
-//		
-	 
+
+	
 		for(Ambulance a : AmbulanceList){
 			if(a.status.equals("At Station")){
-			 this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+			 this.ambulances.add(new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location())));
 			}
 			else{
-				this.ambulances.remove(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
+				this.ambulances.remove(new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location())));
 			}
 		}
 		for(Patient pp : PatientList){
 			if(pp.status.equals("Pending")){
-				this.patients.add(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+				this.patients.add(new Point(Integer.parseInt(pp.getX_location()),Integer.parseInt(pp.getY_location())));
 				}
 			else{
-				this.patients.remove(new Point(Integer.parseInt(pp.x_location),Integer.parseInt(pp.y_location)));
+				this.patients.remove(new Point(Integer.parseInt(pp.getX_location()),Integer.parseInt(pp.getY_location())));
 			}
 		}
 		  
 	 
 	for(Ambulance a : AmbulanceList){
-		Point amb = new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
+		Point amb = new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 		if(a.status.equals("At Station")){
-			this.ambulances.add(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location)));
 			
 			for(Patient p : PatientList){
 				if(p.status.equals("Pending")){
 					
-					Point pat = new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
+					Point pat = new Point(Integer.parseInt(p.getX_location()),Integer.parseInt(p.getY_location()));
 					Point closest1 = FindNearestPoints.main(pat, this.ambulances);
 					
 					if(closest1.equals(amb)){
@@ -217,7 +180,10 @@ public class Tester1{
 						a.patient = p.id;
 						p.ambulance = a.id;
 						System.out.println(a.id + " with status (" + a.status  + ") is picking up Patient " + p.id + " with status ("+ p.status+") ..." + a.location + p.location);
-						Responding(p, a, stations);
+						this.patients.remove(new Point(Integer.parseInt(p.getX_location()),Integer.parseInt(p.getY_location()))); 
+						//this.ambulances.remove(amb);
+						//System.out.println("removed :" + amb + new Point(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location)));
+						Responding(p, a, stations, AmbulanceList, PatientList);
 						this.ambulances = ambulances;
 						System.out.println("BREAK!!!");
 //						break;	
@@ -234,37 +200,44 @@ public class Tester1{
 				
 			}
 	  }
-
+	
 	  for(Patient pp : PatientList){
 		if(pp.status.equals("Pending")){
 			 System.out.println(pp);
 		}
 	  }
-	  
+	  for(Point pe : this.ambulances){
+			 
+			 System.out.println(pe);;
+			
+		
+	  }
+	  for(Point be : patients){
+	 
+		  System.out.println(be);;
+	
+
+	  }
+	 }
+while(!patients.isEmpty());
 	System.out.println("All Ambulances Assigned!");
 	 
 
 
   
 }
-//	switch (a.location) {
-//    case "(50, 50)":  System.out.print ("HOSPITAL - ");
-//             break;
-//    case "(10, 0)":  System.out.print ("Greenfields - ");
-//             break;
-//    case "(30, 80)":  System.out.print("Bluelane - ");
-//    		break;
-//    case "(90, 20)" : System.out.print ("Redvill - ");
-//    		break;
-//    default : System.out.println ("NO STATION - " + a.location);
-//    		break;
-//}	
-  private void Responding(Patient p, Ambulance a, List<Point> stations ) {
+
+  private void Responding(Patient p, Ambulance a, List<Point> stations, ArrayList<Ambulance> AmbulanceList, ArrayList<Patient> PatientList ) {
+	  
+	  this.AmbulanceList = AmbulanceList;
+	  this.PatientList = PatientList;
+	  
 		//‘Responding’: move the ambulance towards the assigned patient by four moves. 
 		//If the ambulance reaches the patient, change the status to ‘At scene’.
 	  	
-		Point2D p1 = new Point2D.Double(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
-		Point2D p2 = new Point2D.Double(Integer.parseInt(p.x_location),Integer.parseInt(p.y_location));
+	  	//this.ambulances.remove(new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location))); 
+		Point2D p1 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
+		Point2D p2 = new Point2D.Double(Integer.parseInt(p.getX_location()),Integer.parseInt(p.getY_location()));
 	
 		double deltaX = p2.getX() - p1.getX();
 		double deltaY = p2.getY() - p1.getY();
@@ -300,7 +273,7 @@ public class Tester1{
 		//‘At scene’: if the ambulance has been at the scene for four seconds, change the status to ‘Transporting’. Otherwise, do nothing.
 		
 		try {
-		
+			System.out.println("Waiting 4 seconds....");
     	    Thread.sleep(4000);    
     	    a.status = "Transporting";
     		p.status = "Transporting";
@@ -312,7 +285,7 @@ public class Tester1{
 		//If the ambulance reaches the hospital, change the status to ‘At destination’.
 		
 		System.out.println(a.id + " with status (" + a.status  + ") is going to hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
-		Point2D.Double p3 = new Point2D.Double(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
+		Point2D.Double p3 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 		Point2D.Double hospital = new Point2D.Double(50,50);
 		
 		double deltaX1 = hospital.getX() - p3.getX();
@@ -355,48 +328,51 @@ public class Tester1{
 	    	    Thread.currentThread().interrupt();
 	    	}
 	    	//Returning’: move the ambulance towards the nearest available station by three moves.
-	    	//If the ambulance reaches the station, change the status to ‘At station’.
+	     }//If the ambulance reaches the station, change the status to ‘At station’.
 	    	if(a.status == "Returning"){
-	    		Point pat = new Point(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
-	    		
+	    		Point pat = new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 	    		Point closest = FindNearestPoints.main(pat, stations);
 	    		System.out.println(a.id + " with status (" + a.status  + ") is going to station " + closest+ " ..." );
-	    		Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.x_location),Integer.parseInt(a.y_location));
+	    		Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 	    		Point2D.Double stat = new Point2D.Double(closest.getX(), closest.getY());
 	    		double deltaX2 = stat.getX() - p4.getX();
 	    		double deltaY2 = stat.getY() - p4.getY();
-
 	    		double coeff2 = 0.33333; 
-	    		Double test4 = p4.getX();
-				Double test5 = p4.getY();
-	    		Rectangle rect1 = new Rectangle(test4.intValue(),test5.intValue(),10,10);
+	    		Double test4 = stat.getX();
+				Double test5 = stat.getY();
+	    		Rectangle rect1 = new Rectangle(test4.intValue()-5,test5.intValue()-5,10,10);
 	    		while(!rect1.contains(p4)){
 	    			try {
 	    				p4.setLocation(p4.getX() + coeff2*deltaX2, p4.getY() + coeff2*deltaY2);
-	    				System.out.println(a.id + " with status (" + a.status  + ") Going to " +  stat + " ..." );
-	    				Double test = p4.getX();
-	    				Double test1 = p4.getY();
+	    				System.out.println(a.id + " with status (" + a.status  + ") Going to " +  stat + "AND IS CURRENTLY AT" + p4 +" ..." );
+	    				Double test = stat.getX();
+	    				Double test1 = stat.getY();
 	    				a.setX_location(Integer.toString(test.intValue()));
 	    				a.setY_location(Integer.toString(test1.intValue()));
+	    				a.setLocation(("(" + a.getX_location() + ", " + a.getY_location() + ")"));
+
 	    				Thread.sleep(1000);
 	    	       	} catch(InterruptedException ex) {
 	    	    	    Thread.currentThread().interrupt();
 	    	    	}
 	    	}
-	    		if(rect1.contains(p4)){
-	    			
-	    			System.out.println(a.id + " with status (" + a.status  + ") IS AT STATION " +  stat + " ..." );
-	    			a.status = "At Station";
-		    		//ambulances.add(new Point(test4.intValue(),test5.intValue()));
-		    		this.ambulances = ambulances;
-		    		
+	    	if(rect1.contains(p4)){
+	    		System.out.println("WE ARE HERE THIS IS GOO");
+	    		a.setStatus("At Station");
+	    
+		    	a.setLocation(("(" + a.getX_location() + ", " + a.getY_location() + ")"));
+	    		System.out.println(a.getID() + " with status (" + a.getStatus()  + ") IS AT STATION " +  stat + " ..." + a.getLocat() + a.getX_location()+ a.getY_location() );
+	    		
+		    	//ambulances.add(new Point(test4.intValue(),test5.intValue()));
+	    		//this.ambulances.add(new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getX_location()))); 
+		    	this.ambulances = ambulances;
 	    		}
 	    		
 	     }
 	    	
 	    System.out.println();
 	
-	     }
+	     
 		
 	}
 }

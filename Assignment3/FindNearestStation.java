@@ -15,64 +15,94 @@ public class FindNearestStation {
 	Point Initial = pat; // pat is the ambulances location, always 50,50;
     //Point p1 = ambulances1.get(0); //this is stations list with all the points
     Point p1 = new Point(stationList.get(0).getX_location(), stationList.get(0).getY_location());
-    
     Station st = new Station(stationList.get(0).getName(),stationList.get(0).getX_location(),stationList.get(0).getY_location(),stationList.get(0).getCapacity(),stationList.get(0).getambulances());
- 
+    
     //36.0555 - 30,80
     //64.0312 - 10,0
     //50 - 90,20
+    
     System.out.println(p1 + " THIS " + st);
     double shortestDistance = distance(Initial, p1); 
-    for (int i = 0; i < stationList.size(); i++) {
-    	System.out.println("stationList.get(i).getambulances().size() " +  stationList.get(i).getambulances().size() );
-    	if(stationList.get(i).getambulances().size() < stationList.get(i).getCapacity()){
-    		double distance = distance(Initial, new Point(stationList.get(i).getX_location(), stationList.get(i).getY_location())); 
-    		if (shortestDistance > distance) {
-    			//p1 = new Point(stationList.get(i).getX_location(), stationList.get(i).getY_location()); 
-    			st = stationList.get(i);
-    			shortestDistance = distance; 
-    			}
-
-    		}
-    	else{
-    		break;
+//    for (int i = 0; i < stationList.size(); i++) {
+//    	System.out.println("stationList.get(i).getambulances().size() " +  stationList.get(i).getambulances().size() );
+//    	if(stationList.get(i).getambulances().size() < stationList.get(i).getCapacity()){
+//    		double distance = distance(Initial, new Point(stationList.get(i).getX_location(), stationList.get(i).getY_location())); 
+//    		if (shortestDistance > distance) {
+//    			//p1 = new Point(stationList.get(i).getX_location(), stationList.get(i).getY_location()); 
+//    			st = stationList.get(i);
+//    			shortestDistance = distance; 
+//    			}
+//    		}
+//    	else if(stationList.get(i++).getambulances().size() < stationList.get(i++).getCapacity()){
+//    		st = stationList.get(i);
+//    		return st;
+//			
+//    	}
+//    	else if(stationList.get(stationList.size()-1).getambulances().size() < stationList.get(stationList.size()-1).getCapacity()){
+//    		st = stationList.get(i);
+//    		return st;
+//			
+//    	}
+//    	    System.out.println(st + "THIS STATION IS FULL");
+//      }   
+    Station green = new Station();
+    Station blue = new Station();
+    Station red = new Station();
+    
+    for(Station stt: stationList){
+    	if(stt.getName().equals("Greenfields")){
+    		System.out.println(stt + "THIS IS Greenfields");
+    		green = stt;
     	}
+    	if(stt.getName().equals("Bluelane")){
+    		System.out.println(stt + "THIS IS Bluelane");
+    		blue = stt;
+    	}
+    	if(stt.getName().equals("Redvill")){
+    		System.out.println(stt + "THIS IS Redvill");
+    		red = stt;
+    	}
+		  
+    }
 
-    	    System.out.println(st + "THIS STATION IS FULL");
-      }   
-    
-    //find the closest station
-//    double shortestDistance = distance(Initial, p1); 
-//    for(Station stat: stationList){
-//    	if((stat.getName().equals("Bluelane")) && (stat.getambulances().size() < stat.getCapacity())){
-//    		double distance = distance(Initial, new Point(stat.getX_location(), stat.getY_location())); 
-//    		if(shortestDistance > distance){
-//    			st = stat;
-//    			shortestDistance = distance;
-//    		}
+    System.out.println(green + "< LOOK HERE AND HERE >" + blue + red);
+    if(blue.getambulances().size() < blue.getCapacity()){
+		st = blue;
+		return st;
+	}
+	else if(red.getambulances().size() < red.getCapacity()){
+		st = red;
+		return st;
+		
+	}
+	else if(green.getambulances().size() < green.getCapacity()){
+		st = green;
+		return st;
+	}
+//    
+//   for(Station stat: stationList){
+//	   if(stat.getambulances().size() > stat.getCapacity()){
+//		   
+//	   }
+//   }
+//    if(st.getambulances().size() > st.getCapacity()){
+//        Station st1 = st;
+//    	if((st.getName().equals("Bluelane")) && (st.getambulances().size() < st.getCapacity())){
+//    			st1 = st;
+//    			
+//    	}
+//    	else if((st.getName().equals("Greenfields")) && (st.getambulances().size() < st.getCapacity())){
 //    		
+//    			st1 = st;
 //    	}
-//    	if((stat.getName().equals("Greenfields")) && (stat.getambulances().size() < stat.getCapacity())){
-//    		double distance = distance(Initial, new Point(stat.getX_location(), stat.getY_location())); 
-//    		if(shortestDistance > distance){
-//    			st = stat;
-//    			shortestDistance = distance;
-//    		}
-//    		
+//    	else if((st.getName().equals("Redvill")) && (st.getambulances().size() < st.getCapacity())){
+//    			return st1 = st;
 //    	}
-//    	if((stat.getName().equals("Redvill")) && (stat.getambulances().size() < stat.getCapacity())){
-//    		double distance = distance(Initial, new Point(stat.getX_location(), stat.getY_location())); 
-//    		if(shortestDistance > distance){
-//    			st = stat;
-//    			shortestDistance = distance;
-//    		}
-//    	}
-   // }
-   // if(st.getambulances().size() < st.getCapacity()){
-    //	return st;
-   // }
+//    }
     System.out.println("The closest point to " + Initial + " is " +  st );
-    
+//    if(st.getambulances().size() > st.getCapacity()){
+//    	
+//    }
 	return st;
 
 }

@@ -7,15 +7,9 @@ import java.util.List;
 
 public class FindNearestPatient {
 	//List<Patient> PatientList
-  public static Patient main(Point pat, List<Patient> PatientList) {
+  public static Patient main(Point pat, List<Patient> PatientList, ArrayList<Patient> tt) {
 
-	  List<Patient> patients  = new ArrayList<Patient>();
-	  for(Patient p: PatientList){
-		  if(p.getStatus().equals("Pending")){
-			  patients.add(p);
-		  }
-	  }
-	 
+	  List<Patient> patients  = tt;
 
     Point Initial = pat;
     Point p1 = new Point(Integer.parseInt(patients.get(0).getX_location()),Integer.parseInt(patients.get(0).getY_location()));

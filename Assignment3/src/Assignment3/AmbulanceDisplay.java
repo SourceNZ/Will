@@ -27,7 +27,7 @@ public class AmbulanceDisplay extends JPanel
   static JFrame frame = new JFrame("Ambulance Information");
   public static JTable table;
   static MyModel NewModel;
-  static Tester1.CSVFile R1 = new Tester1.CSVFile();
+  static Tester1.CSVFile R1 = new Tester1.CSVFile(); 
   ListSelectionModel listSelectionModel;
   static File DataFile1 = new File("ambulances.csv");
 

@@ -389,7 +389,7 @@ public class AmbulanceThread implements Runnable {
 
 					Point pat = new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 					System.out.println(a + "THIS AMBULANCE IS HERE: " + pat);
-					Station closest = FindNearestStation.main(pat, stations, AmbulanceList, stationList);
+					Station closest = FindNearestStation.main(pat, AmbulanceList, stationList);
 					System.out.println("THIS STATION HAS CAPACITY: " + closest.getCapacity());
 					System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is going to station " + closest + " ..." );
 					Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));

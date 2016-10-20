@@ -195,7 +195,10 @@ public class MyRunnableTask implements Runnable {
 		}
 	
 		private synchronized void Transporting(Ambulance a, List<Point> stations, ArrayList<Ambulance> AmbulanceList, ArrayList<Patient> PatientList ) {
-		Patient p = new Patient();
+			
+			this.AmbulanceList = AmbulanceList;
+			this.PatientList = PatientList;
+			Patient p = new Patient();
 		for(Patient pp : PatientList){
 		  if(pp.getID().equals(a.getpatient())){
 			  p = pp;
@@ -204,8 +207,6 @@ public class MyRunnableTask implements Runnable {
 		}	
 		
 		//49,50 
-		//A32 with status (Transporting) is going to hospital with Patient 10 with status (Transporting) ...
-	
 		System.out.println(a.id + " with status (" + a.status  + ") is going to hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
 		Point2D.Double p3 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 		Point2D.Double hospital = new Point2D.Double(50,50);
@@ -262,9 +263,7 @@ public class MyRunnableTask implements Runnable {
 		}
 			
 		private synchronized void Returning(Ambulance a, List<Point> stations, ArrayList<Ambulance> AmbulanceList, ArrayList<Patient> PatientList, List<Station> stationList ) {
-			Lock lck =  new ReentrantLock();
-			try{
-				lck.lock();
+			
 				this.stationList = stationList;
 				this.AmbulanceList = AmbulanceList;
 				this.PatientList = PatientList;
@@ -278,8 +277,19 @@ public class MyRunnableTask implements Runnable {
 
 						Point pat = new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 						System.out.println(a + "THIS AMBULANCE IS HERE: " + pat);
-						Station closest = FindNearestStation.main(pat, stations, AmbulanceList, this.stationList);
-						System.out.println("THIS STATION HAS CAPACITY: " + closest.getCapacity());
+						Station closest = FindNearestStation.main(pat, this.AmbulanceList, this.stationList);
+						System.out.println("THIS STATION HAS THESE AMBULANCES IN IT: " + closest.getambulances()); //this is null
+						for(Station stat1: this.stationList){
+				    		if(stat1.getName().equals(closest.getName())){
+				    			closest = stat1;
+				    		}
+				    	}
+						for(Station stat1: this.stationList){
+				    		if(stat1.equals(closest)){
+				    			stat1.addambulance(a);
+				    		}
+				    	}
+						
 						System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is going to station " + closest + " ..." );
 						Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 						Point2D.Double stat = new Point2D.Double(closest.getX_location(), closest.getY_location());
@@ -313,11 +323,11 @@ public class MyRunnableTask implements Runnable {
 						a.setX_location(Integer.toString(closest.getX_location()));
 						a.setY_location(Integer.toString(closest.getY_location()));
 				    	a.setLocation(("(" + closest.getX_location() + ", " + closest.getY_location() + ")"));
-				    	for(Station stat1: this.stationList){
-				    		if(stat1.equals(closest)){
-				    			stat1.addambulance(a);
-				    		}
-				    	}
+//				    	for(Station stat1: this.stationList){
+//				    		if(stat1.equals(closest)){
+//				    			stat1.addambulance(a);
+//				    		}
+//				    	}
 						}
 				    	this.stationList = stationList;
 						System.out.println("ADDED AMBULANCE TO STATION" + closest + a);
@@ -325,10 +335,7 @@ public class MyRunnableTask implements Runnable {
 
 					}
 					 System.out.println();
-					
-				 }finally{
-					 lck.unlock();
-				 }
+				
 			
 				
 			}

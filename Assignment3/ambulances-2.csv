@@ -1,10 +1,10 @@
 id,x.Location,y.Location,status,patient
-A1,30,80,At Station,
-A2,30,80,At Station,
-A4,90,20,At Station,
+A1,90,20,At Station,
+A2,90,20,At Station,
+A4,61,41,Transporting,3
 A8,30,80,At Station,
-A16,90,20,Responding,4
-A64,90,20,At Station,
-A32,30,80,At Station,
+A16,90,20,At Station,
+A64,67,2,At Scene,7
+A32,10,0,At Station,
 A128,30,80,At Station,
 

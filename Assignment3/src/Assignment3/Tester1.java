@@ -51,11 +51,9 @@ public class Tester1{
   private ArrayList<Ambulance> AmbulanceList;
   private List<Point> stations = new ArrayList<Point>();
   private List<Station> stationList = new ArrayList<Station>();
- // private List<Point> ambulances = new ArrayList<Point>();
-  private List<Point> patients = new ArrayList<Point>();
-  static Tester1.CSVFile R1 = new Tester1.CSVFile(); 
+ static Tester1.CSVFile R1 = new Tester1.CSVFile(); 
   private File DataFile1 = new File("ambulances-2.csv");
-  int endTime = 100;
+  int endTime = 60;
  
   
   public Tester1(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList, int endTime )
@@ -63,7 +61,6 @@ public class Tester1{
 	  this.endTime = endTime;
 	  if(System.currentTimeMillis() <=  this.endTime * 1000) {
 			System.out.println("ENDING THREADS");
-
 	  }
 	  double stationCapacity;
 	  stationCapacity = Math.ceil((double)AmbulanceList.size()/3);
@@ -83,7 +80,6 @@ public class Tester1{
 			  }
 		  }
 	  }
-
 	  this.PatientList = PatientList;
 	  this.AmbulanceList = AmbulanceList;
 	  
@@ -100,13 +96,13 @@ public class Tester1{
 		
   public static void main(String[] args)  {
 	 
-	  int endTime = 100;
+	  int endTime = 60;
 	  try{
 		  endTime = Integer.parseInt(args[0]);
 		  System.out.println(endTime + "THIS IS THE END TIME");
 	  }
 	  catch(Exception e){
-		  endTime = 100;
+		  endTime = 60;
 	  }
 	ArrayList<Patient> PatientList = new ArrayList<Patient>();
 	ArrayList<Ambulance> AmbulanceList = new ArrayList<Ambulance>();
@@ -130,8 +126,6 @@ public class Tester1{
 	    }
 	 
 	 Tester1 menu = new Tester1(PatientList, AmbulanceList,endTime);
-	
-
   }
   
 static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList){
@@ -151,10 +145,10 @@ static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> Ambul
 	            String[] destStrings = new String[6];
 	            String[] srcStrings = st.split(",");
 	            String[] srcCopy = new String[6];
-	            srcCopy[0] = srcStrings[0]; //id
-	            srcCopy[1] = ("(" + srcStrings[1] + ", " + srcStrings[2] + ")");  //x and y locaiton
-	            srcCopy[2] = srcStrings[3]; //status
-	            if(srcStrings.length == 4){ //if theres no ambulance, set it to null
+	            srcCopy[0] = srcStrings[0]; 
+	            srcCopy[1] = ("(" + srcStrings[1] + ", " + srcStrings[2] + ")");  
+	            srcCopy[2] = srcStrings[3]; 
+	            if(srcStrings.length == 4){ 
 	          	  srcCopy[3] = " ";
 	            }
 	            else if(srcStrings.length == 5){
@@ -203,21 +197,6 @@ static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> Ambul
 	for(Ambulance a : AmbulanceList){
 		Thread t = new Thread(new MyRunnableTask(a, stations, AmbulanceList, PatientList, this.stationList, tt)) ;
 		threadPool.submit(t);
-		
-		//t.start();
-		 //a, stations, AmbulanceList, PatientList, stationList, tt
-		//new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt;
-		//Thread t = new Thread(new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt));
-		//AmbulanceThread t = new AmbulanceThread(a, stations, AmbulanceList, PatientList, stationList, tt);
-		//threadPool.scheduleAtFixedRate(new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt), 0, 2, TimeUnit.SECONDS);
-		//MyRunnableTask ttt = new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt);
-		//threadPool.execute(new AmbulanceThread(a, stations, AmbulanceList, PatientList, stationList, tt));
-		//threadPool.execute(new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt));
-		//threadPool.submit(new AmbulanceThread(a, stations, AmbulanceList, PatientList, stationList, tt));
-		//threadPool.submit(new MyRunnableTask(a, stations, AmbulanceList, PatientList, stationList, tt));
-		//threadPool.execute(t);
-		//t.run();
-		
 	}
 while (System.currentTimeMillis() < end)
 	{
@@ -237,24 +216,20 @@ while (System.currentTimeMillis() < end)
 		for(Station st: this.stationList){
 			System.out.println(st + "HEY");
 		}
-		//this.stationList
-		
-		//threadPool.execute(new MyRunnableTask);
 	}
 	threadPool.shutdownNow();
 	  synchronized(this){
 	try {
 		writeCSVFileAmbulance.writeCSVFile(AmbulanceList);
 	} catch (Exception e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} 
-	ArrayList<String[]> Rs2 = R1.ReadCSVfile(DataFile1);
-	AmbulanceDisplay.NewModel.AddCSVData(Rs2);
-  	AmbulanceDisplay.NewModel.fireTableDataChanged();
+	System.out.println("60 SECOND TIMER IS DONE!");
+	//ArrayList<String[]> Rs2 = R1.ReadCSVfile(DataFile1);
+	//AmbulanceDisplay.NewModel.AddCSVData(Rs2);
+  	//AmbulanceDisplay.NewModel.fireTableDataChanged();
 	  }
 	  }
-
 		
 	}
 

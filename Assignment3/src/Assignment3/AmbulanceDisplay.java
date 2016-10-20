@@ -58,7 +58,9 @@ public class AmbulanceDisplay extends JPanel
       @Override
       public void actionPerformed(ActionEvent ex)
       {
-        //this.endTime = (Integer.parseInt(texting.getText()));
+    	  //Tester1.main(new String[]{texting.getText()});
+        //this should be the duration of the animation
+    	
       }
     });
    //AmbulanceMap.main(PatientList, AmbulanceList);
@@ -68,7 +70,7 @@ public class AmbulanceDisplay extends JPanel
       @Override
       public void actionPerformed(ActionEvent ex)
       {    	 
-    	  
+    	  //this needs to start all threads/open gui
       }
     });
   
@@ -78,7 +80,8 @@ public class AmbulanceDisplay extends JPanel
       @Override
       public void actionPerformed(ActionEvent e)
       {
-    	 // Tester1.threadPool.shutdownNow();
+    	 //this needs to stop all threads
+    	  // Tester1.threadPool.shutdownNow();
     	 
       }
     });
@@ -89,7 +92,6 @@ public class AmbulanceDisplay extends JPanel
     add(texting, BorderLayout.NORTH);
   }
 
-  // Method for reading CSV file
   
 
   public static void loadAmbulanceDisplay(ArrayList<Patient> PatientList, ArrayList<Ambulance> AmbulanceList)

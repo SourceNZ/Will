@@ -8,25 +8,18 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class FindNearestStation {
 	
-  public synchronized static Station main(Point pat,  List<Point> ambulances1, List<Ambulance> AmbulanceList, List<Station> stationList) {
-	
-			  
-			Point Initial = pat; // pat is the ambulances location, always 50,50;
-		    //Point p1 = ambulances1.get(0); //this is stations list with all the points
+  public synchronized static Station main(Point pat,  List<Ambulance> AmbulanceList, List<Station> stationList) {
+	  		
+			Point Initial = pat; 
 		    Point p1 = new Point(stationList.get(0).getX_location(), stationList.get(0).getY_location());
 		    Station st = new Station(stationList.get(0).getName(),stationList.get(0).getX_location(),stationList.get(0).getY_location(),stationList.get(0).getCapacity(),stationList.get(0).getambulances());
-		    
-		    //36.0555 - 30,80
-		    //64.0312 - 10,0
-		    //50 - 90,20
-		    
+		    //Station st = new Station();
+			 Station green = new Station(stationList.get(0).getName(),stationList.get(0).getX_location(),stationList.get(0).getY_location(),stationList.get(0).getCapacity(),stationList.get(0).getambulances());
+			 Station blue = new Station(stationList.get(1).getName(),stationList.get(1).getX_location(),stationList.get(1).getY_location(),stationList.get(1).getCapacity(),stationList.get(1).getambulances());
+			 Station red = new Station(stationList.get(2).getName(),stationList.get(2).getX_location(),stationList.get(2).getY_location(),stationList.get(2).getCapacity(),stationList.get(2).getambulances());
+			   //problem could be that its creating a new station every time
+			 
 		    System.out.println(p1 + " THIS " + st);
-		    //double shortestDistance = distance(Initial, p1); 
-
-		   Station green = new Station();
-		   Station blue = new Station();
-		   Station red = new Station();
-		   
 		    for(Station stt: stationList){
 		    	if(stt.getName().equals("Greenfields")){
 		    		System.out.println(stt + "THIS IS Greenfields");
@@ -40,38 +33,36 @@ public class FindNearestStation {
 		    		System.out.println(stt + "THIS IS Redvill");
 		    		red = stt;
 		    	}
-				  
 		    }
-		    
+		    for(Station stat1: stationList){
+	    		if(stat1.getName().equals(st.getName())){
+	    			st = stat1;
+	    		}
+	    	}
 		    System.out.println(green + "< LOOK HERE AND HERE >" + blue + red);
+		  //blue.getambulances().size() ambulances is null
 		    if(blue.getambulances().size() < blue.getCapacity()){
 				st = blue;
+				System.out.println("THIS IS WHAT IS BEING RETURNED " +st + "THIS IS BLUE AND ");
 				return st;
 			}
 			else if(red.getambulances().size() < red.getCapacity()){
 				st = red;
-				return st;
+				System.out.println("THIS IS WHAT IS BEING RETURNED " +st + "THIS IS REDVILL AND ");
 				
+				return st;
 			}
-			else if(green.getambulances().size() < green.getCapacity()){
+			 if(green.getambulances().size() < green.getCapacity()){
 				st = green;
+				System.out.println("THIS IS WHAT IS BEING RETURNED " +st + "THIS IS GREEN AND ");
 				return st;
 			}
 
 		    System.out.println("The closest point to " + Initial + " is " +  st );
-//		    if(st.getambulances().size() > st.getCapacity()){
-//		    	
-//		    }
-			return st;
+		    
+		    return st;
+		 
+			
 			  
   }
-	//The number of ambulances a station can accommodate is defined by the total number of ambulances divided by three, rounded up. 
-	//For example, if there are four ambulances defined, each station can accommodate two ambulances (four divided by three, rounded up).
-	//• A station is available if there are less ambulances at the station than it can accommodate.
-	
-	
-  private static double distance(Point x, Point y) {
-      return Math.sqrt((y.getX() - x.getX()) * (y.getX() - x.getX()) + (y.getY() - x.getY()) * (y.getY() - x.getY()));
-    }
-
 }

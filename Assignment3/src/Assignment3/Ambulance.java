@@ -22,14 +22,14 @@ public class Ambulance
 
   }
 
-  public Ambulance(String id_, String x_location_, String y_location_, String status_, String patient)
+  public Ambulance(String strings, String strings2, String strings3, String strings4, String strings5)
   {
-    this.id = id_;
-    this.x_location = x_location_;
-    this.y_location = y_location_;
-    this.status = status_;
-    this.patient = patient;
-    this.location = ("(" + x_location_ + ", " + y_location_ + ")");
+    this.id = strings;
+    this.x_location = strings2;
+    this.y_location =  strings3;
+    this.status =  strings4;
+    this.patient =  strings5;
+    this.location = ("(" + strings2 + ", " + strings3 + ")");
   }
   public String getLocat(){
 	return this.location;
@@ -90,7 +90,8 @@ public class Ambulance
   @Override
   public String toString()
   {
-    return ("" + this.id + "," + x_location + "," + y_location + "," + status + ", " + patient);
+
+    return (this.id + "," + x_location + "," + y_location + "," + status + "," + patient);
 
   }
 }

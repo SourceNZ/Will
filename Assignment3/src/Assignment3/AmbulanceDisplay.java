@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -30,6 +31,7 @@ public class AmbulanceDisplay extends JPanel
   static Tester1.CSVFile R1 = new Tester1.CSVFile(); 
   ListSelectionModel listSelectionModel;
   static File DataFile1 = new File("ambulances.csv");
+  int endTime = 0;
 
 
   public AmbulanceDisplay(ArrayList<Patient> PatientList, ArrayList<Ambulance> AmbulanceList)
@@ -50,26 +52,33 @@ public class AmbulanceDisplay extends JPanel
     ArrayList<String[]> Rs2 = R1.ReadCSVfile(DataFile1);
     NewModel.AddCSVData(Rs2);
     NewModel.fireTableDataChanged();
-    //listSelectionModel = table.getSelectionModel();
-   // listSelectionModel.addListSelectionListener(new AmbulanceTableListener(PatientList, AmbulanceList));// ZAC NEED TO SOMEHOW PASS PATIENT LIST TO THIS
-    //table.setSelectionModel(listSelectionModel);
-
-   
+    JTextField texting = new JTextField();
+    texting.addActionListener(new ActionListener()
+    {
+      @Override
+      public void actionPerformed(ActionEvent ex)
+      {
+        //this.endTime = (Integer.parseInt(texting.getText()));
+      }
+    });
+   //AmbulanceMap.main(PatientList, AmbulanceList);
     JButton startButton = new JButton("Start");
     startButton.addActionListener(new ActionListener()
     {
       @Override
       public void actionPerformed(ActionEvent ex)
-      {
-        
+      {    	 
+    	  
       }
     });
+  
     JButton stopButton = new JButton("Stop");
     stopButton.addActionListener(new ActionListener()
     {
       @Override
       public void actionPerformed(ActionEvent e)
       {
+    	 // Tester1.threadPool.shutdownNow();
     	 
       }
     });
@@ -77,7 +86,7 @@ public class AmbulanceDisplay extends JPanel
     tests.add(stopButton, BorderLayout.EAST);
     tests.add(startButton, BorderLayout.WEST);
     add(tests, BorderLayout.SOUTH);
-
+    add(texting, BorderLayout.NORTH);
   }
 
   // Method for reading CSV file
@@ -95,6 +104,7 @@ public class AmbulanceDisplay extends JPanel
   public class MyModel  extends AbstractTableModel  { // implements TableModelListener
     public final String[] columnNames = { "id", "Location", "status", "Patient" };
     public ArrayList<String[]> Data = new ArrayList<String[]>();
+    
 
     public void AddCSVData(ArrayList<String[]> DataIn)
     {
@@ -104,7 +114,7 @@ public class AmbulanceDisplay extends JPanel
 
     public String[] getRowAt(int row)
     {
-      return Data.get(row);
+      return (String[]) Data.get(row);
     }
 
     @Override

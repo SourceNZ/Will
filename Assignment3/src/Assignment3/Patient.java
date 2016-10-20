@@ -20,8 +20,8 @@ public class Patient {
 
 	}
 	public Patient(String id_,String x_location_, String y_location_, String status_,String ambulance_){
-		this.id = id_;
-		this.x_location = x_location_;
+		this.id =  id_;
+		this.x_location =x_location_;
 		this.y_location = y_location_;
 		this.status = status_;
 		this.ambulance = ambulance_;

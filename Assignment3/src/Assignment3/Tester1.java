@@ -41,7 +41,9 @@ import javax.swing.JFrame;
 	 
 	 problems with patients near to stations and hospitals?
 	 
-	 station capacities not working properly.
+	make it draw the map when the user pushes stop.
+	
+	get distance movements to be correct
  */
 
 
@@ -195,8 +197,14 @@ static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> Ambul
 	//AmbulanceMap map = new AmbulanceMap(PatientList, AmbulanceList);
 	
 	for(Ambulance a : AmbulanceList){
-		Thread t = new Thread(new MyRunnableTask(a, stations, AmbulanceList, PatientList, this.stationList, tt)) ;
-		threadPool.submit(t);
+		try{
+			Thread.sleep(100);
+			Thread t = new Thread(new MyRunnableTask(a, stations, AmbulanceList, PatientList, this.stationList, tt)) ;
+			threadPool.submit(t);
+		}catch(Exception e){
+			
+		}
+		
 	}
 while (System.currentTimeMillis() < end)
 	{
@@ -225,6 +233,7 @@ while (System.currentTimeMillis() < end)
 		e.printStackTrace();
 	} 
 	System.out.println("60 SECOND TIMER IS DONE!");
+	AmbulanceMap.main(PatientList, AmbulanceList);
 	//ArrayList<String[]> Rs2 = R1.ReadCSVfile(DataFile1);
 	//AmbulanceDisplay.NewModel.AddCSVData(Rs2);
   	//AmbulanceDisplay.NewModel.fireTableDataChanged();

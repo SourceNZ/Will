@@ -163,7 +163,7 @@ public class MyRunnableTask implements Runnable {
 		
 		double deltaX = p2.getX() - p1.getX();
 		double deltaY = p2.getY() - p1.getY();
-		double coeff = 0.03; 
+		double coeff = 0.01; 
 		//double coeff = 0.25;
 
 		while(!rect.contains(p1)){
@@ -296,7 +296,7 @@ public class MyRunnableTask implements Runnable {
 						double deltaX2 = stat.getX() - p4.getX();
 						double deltaY2 = stat.getY() - p4.getY();
 						//double coeff2 = 0.33333; 
-						double coeff2 = 0.03; 
+						double coeff2 = 0.01; 
 						Double test4 = stat.getX();
 						Double test5 = stat.getY();
 						//-5,-5,10,10

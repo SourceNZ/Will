@@ -33,7 +33,7 @@ public class MyRunnableTask implements Runnable {
 	
 	  @Override
 	public synchronized void run() {
-		while(!tt.isEmpty()){
+		while(!tt.isEmpty() && !Thread.currentThread().isInterrupted()){
 		  if(a.getStatus().equals("At Station")&& !tt.isEmpty()){ // sets status to responding
 				synchronized(this){
 				System.out.println(a.getID() + " IS SEARCHING FOR PATIENTS");
@@ -43,11 +43,11 @@ public class MyRunnableTask implements Runnable {
 					this.tt.remove(P);
 				}
 				}
-				 System.out.println("HERE");
-				 for(Patient pe : tt){
-					 System.out.println(pe);
-				 }
-				 System.out.println("THERE");
+//				 System.out.println("HERE");
+//				 for(Patient pe : tt){
+//					 System.out.println(pe);
+//				 }
+//				 System.out.println("THERE");
 			}
 			if(a.getStatus().equals("Responding")){ // sets status to at scene
 				for(Station st: this.stationList){
@@ -55,7 +55,7 @@ public class MyRunnableTask implements Runnable {
 						synchronized(this){
 						st.removeambulance(a);
 						}
-						System.out.println(a + "REMOVED AMBULANCE FROM STATION");
+						//System.out.println(a + "REMOVED AMBULANCE FROM STATION");
 					}
 				}
 				Responding(a, stations, AmbulanceList, PatientList);
@@ -68,15 +68,16 @@ public class MyRunnableTask implements Runnable {
 					  } 
 				  }
 			  	try {
-					System.out.println("Waiting 4 seconds....");
-					Thread.currentThread().sleep(4000);    
-		    	    synchronized(this){
+					//System.out.println("Waiting 4 seconds....");
+					Thread.sleep(4000);    
+					synchronized(this){
 		    	    a.setStatus("Transporting");
 		    		p.setStatus("Transporting");
-		    	    }
+					}
 		       	} catch(InterruptedException ex) {
 		    	    Thread.currentThread().interrupt();
 		    	}
+			
 			}
 			if(a.getStatus().equals("Transporting")){
 				Transporting(a, stations, AmbulanceList, PatientList);
@@ -89,6 +90,8 @@ public class MyRunnableTask implements Runnable {
 						  p = pp;
 					  } 
 				  }
+				  p.setX_location("50");
+				  p.setY_location("50");
 				try {
 					Thread.currentThread().sleep(2000);    
 					 synchronized(this){
@@ -96,7 +99,7 @@ public class MyRunnableTask implements Runnable {
 				    a.setpatient(""); 		//clear patient from ambulance
 				    p.setambulance (""); 		//clear ambulance from patient
 				    }
-		    	    System.out.println(a.id + " with status (" + a.status  + ") is returning from hospital ..." );
+		    	    //System.out.println(a.id + " with status (" + a.status  + ") is returning from hospital ..." );
 		    	    
 		    	} catch(InterruptedException ex) {
 		    	    Thread.currentThread().interrupt();
@@ -118,7 +121,7 @@ public class MyRunnableTask implements Runnable {
 		a.setpatient(p.getID());
 		p.setambulance( a.getID());
 			  }
-		System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is picking up Patient " + p.getID() + " with status ("+ p.getStatus() +") ..." + a.getLocat() + p.getLocat());
+		//System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is picking up Patient " + p.getID() + " with status ("+ p.getStatus() +") ..." + a.getLocat() + p.getLocat());
 		}
 
 		public synchronized Patient findPatient(Ambulance a1, ArrayList<Patient> PatientList, ArrayList<Patient> tt){
@@ -163,13 +166,13 @@ public class MyRunnableTask implements Runnable {
 		
 		double deltaX = p2.getX() - p1.getX();
 		double deltaY = p2.getY() - p1.getY();
-		double coeff = 0.01; 
+		double coeff = 0.02; 
 		//double coeff = 0.25;
 
 		while(!rect.contains(p1)){
 		try {
 			p1.setLocation(p1.getX() + coeff*deltaX, p1.getY() + coeff*deltaY);
-			System.out.println(a.id + " with status (" + a.status  + ") Transporting Patient " +  p1 + " ..." );
+			//System.out.println(a.id + " with status (" + a.status  + ") Transporting Patient " +  p1 + " ..." );
 			Double test = p1.getX();
 			Double test1 = p1.getY();
 			synchronized(this){
@@ -187,7 +190,7 @@ public class MyRunnableTask implements Runnable {
 			a.setStatus("At Scene");
 			a.setX_location(Integer.toString(test.intValue()));
 			a.setY_location(Integer.toString(test1.intValue()));
-			System.out.println(a.id + " with status (" + a.status  + ") is at scene with Patient " + p.id + " with status ("+ p.status+") ..." );
+			//System.out.println(a.id + " with status (" + a.status  + ") is at scene with Patient " + p.id + " with status ("+ p.status+") ..." );
 
 			  }
 		}
@@ -207,13 +210,13 @@ public class MyRunnableTask implements Runnable {
 		}	
 		
 		//49,50 
-		System.out.println(a.id + " with status (" + a.status  + ") is going to hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
+		//System.out.println(a.id + " with status (" + a.status  + ") is going to hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
 		Point2D.Double p3 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 		Point2D.Double hospital = new Point2D.Double(50,50);
 		double deltaX1 = hospital.getX() - p3.getX();
 		double deltaY1 = hospital.getY() - p3.getY();
 		//double coeff1 = 0.33333; 
-	    double coeff1 = 0.01; 
+	    double coeff1 = 0.02; 
 	
 	    //45,45,10,10
 		Rectangle rect = new Rectangle(48,48,4,4);
@@ -226,7 +229,7 @@ public class MyRunnableTask implements Runnable {
 			p.setY_location("50");
 			a.setStatus("At Destination");
 			p.setStatus("Completed");
-			System.out.println(a.id + " with status (" + a.status  + ") is At hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
+			//System.out.println(a.id + " with status (" + a.status  + ") is At hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
 			  }
 		}
 			  else{
@@ -254,7 +257,7 @@ public class MyRunnableTask implements Runnable {
 			p.setY_location("50");
 			a.setStatus("At Destination");
 			p.setStatus("Completed");
-			System.out.println(a.id + " with status (" + a.status  + ") is At hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
+			//System.out.println(a.id + " with status (" + a.status  + ") is At hospital with Patient " + p.id + " with status ("+ p.status+") ..." );
 		 
 		}
 		 }
@@ -276,9 +279,9 @@ public class MyRunnableTask implements Runnable {
 				}
 
 						Point pat = new Point(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
-						System.out.println(a + "THIS AMBULANCE IS HERE: " + pat);
+						//System.out.println(a + "THIS AMBULANCE IS HERE: " + pat);
 						Station closest = FindNearestStation.main(pat, this.AmbulanceList, this.stationList);
-						System.out.println("THIS STATION HAS THESE AMBULANCES IN IT: " + closest.getambulances()); //this is null
+						//System.out.println("THIS STATION HAS THESE AMBULANCES IN IT: " + closest.getambulances()); //this is null
 						for(Station stat1: this.stationList){
 				    		if(stat1.getName().equals(closest.getName())){
 				    			closest = stat1;
@@ -290,13 +293,13 @@ public class MyRunnableTask implements Runnable {
 				    		}
 				    	}
 						
-						System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is going to station " + closest + " ..." );
+						//System.out.println(a.getID() + " with status (" + a.getStatus()  + ") is going to station " + closest + " ..." );
 						Point2D.Double p4 = new Point2D.Double(Integer.parseInt(a.getX_location()),Integer.parseInt(a.getY_location()));
 						Point2D.Double stat = new Point2D.Double(closest.getX_location(), closest.getY_location());
 						double deltaX2 = stat.getX() - p4.getX();
 						double deltaY2 = stat.getY() - p4.getY();
 						//double coeff2 = 0.33333; 
-						double coeff2 = 0.01; 
+						double coeff2 = 0.02; 
 						Double test4 = stat.getX();
 						Double test5 = stat.getY();
 						//-5,-5,10,10
@@ -330,8 +333,8 @@ public class MyRunnableTask implements Runnable {
 //				    	}
 						}
 				    	this.stationList = stationList;
-						System.out.println("ADDED AMBULANCE TO STATION" + closest + a);
-						System.out.println(a.getID() + " with status (" + a.getStatus()  + ") IS AT STATION " +  stat + " ..." + a.getLocat());
+						//System.out.println("ADDED AMBULANCE TO STATION" + closest + a);
+						//System.out.println(a.getID() + " with status (" + a.getStatus()  + ") IS AT STATION " +  stat + " ..." + a.getLocat());
 
 					}
 					 System.out.println();

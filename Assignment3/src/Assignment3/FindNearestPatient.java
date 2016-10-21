@@ -25,7 +25,7 @@ public class FindNearestPatient {
           shortestDistance = distance; 
         }
       }
-    System.out.println("The closest point to " + Initial + " is " +  am );
+    //System.out.println("The closest point to " + Initial + " is " +  am );
 	return am;
 	  }
 

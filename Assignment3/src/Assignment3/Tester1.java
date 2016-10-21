@@ -20,6 +20,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 
@@ -29,14 +30,8 @@ import javax.swing.JFrame;
 	
 
 	 
-	ambulances going to the same patient, not every ambulance is doing something, often stuck at At station.
-	gui screen not implemented.
-	hospital area too big?
-	 
-	 
-	 test multiple files to make sure it works.
-	 make ambulances keep searching for patients.
-	 
+
+
 	 patients that are right next to hospital, e.g patient at 49,50
 	 
 	 problems with patients near to stations and hospitals?
@@ -44,10 +39,11 @@ import javax.swing.JFrame;
 	make it draw the map when the user pushes stop.
 	
 	get distance movements to be correct
+	
  */
 
 
-public class Tester1{
+public class Tester1 {
   public JFrame mainFrame;
   private ArrayList<Patient> PatientList;
   private ArrayList<Ambulance> AmbulanceList;
@@ -55,7 +51,9 @@ public class Tester1{
   private List<Station> stationList = new ArrayList<Station>();
  static Tester1.CSVFile R1 = new Tester1.CSVFile(); 
   private File DataFile1 = new File("ambulances-2.csv");
+  static ExecutorService threadPool;
   int endTime = 60;
+  static AmbulanceMap map;
  
   
   public Tester1(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList, int endTime )
@@ -85,54 +83,16 @@ public class Tester1{
 	  this.PatientList = PatientList;
 	  this.AmbulanceList = AmbulanceList;
 	  
-	  try {
-		Thread.sleep(500);
-		prepareGUI(PatientList, AmbulanceList);
-	  } catch (InterruptedException e) {
-		
-		e.printStackTrace();
-	  }
+
 	  Tester(this.PatientList, this.AmbulanceList, stations, this.stationList, this.endTime);	  
   }
-	
-		
-  public static void main(String[] args)  {
-	 
+
+  public static void main(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList)  {
 	  int endTime = 60;
-	  try{
-		  endTime = Integer.parseInt(args[0]);
-		  System.out.println(endTime + "THIS IS THE END TIME");
-	  }
-	  catch(Exception e){
-		  endTime = 60;
-	  }
-	ArrayList<Patient> PatientList = new ArrayList<Patient>();
-	ArrayList<Ambulance> AmbulanceList = new ArrayList<Ambulance>();
-	Tester1.CSVFile s = new Tester1.CSVFile();
-	ArrayList<String[]> e = s.ReadCSVfile(new File("ambulances.csv"));
-	new Tester1.CSVFile();
-	ArrayList<String[]> v = s.ReadCSVfile(new File("patients.csv"));	
-	 for (String[] strings : v)
-	    {
-	      Patient test1 = new Patient(strings[0], strings[4], strings[5], strings[2], strings[3]);
-	      if(!PatientList.contains(test1)){
-	    	  PatientList.add(test1);
-	      }
-	    }
-	 for (String[] strings : e)
-	    {
-	      Ambulance test1 = new Ambulance(strings[0], strings[4], strings[5], strings[2], strings[3]);
-	      if(!AmbulanceList.contains(test1)){
-	    	  AmbulanceList.add(test1);
-	      }
-	    }
-	 
-	 Tester1 menu = new Tester1(PatientList, AmbulanceList,endTime);
-  }
+	  Tester1 menu = new Tester1(PatientList, AmbulanceList,endTime);
+
+ }
   
-static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList){
-  AmbulanceDisplay.main( PatientList, AmbulanceList);
-}
   public static class CSVFile  {
 	    public ArrayList<String[]> ReadCSVfile(File DataFile)    {
 	      ArrayList<String[]> Values = new ArrayList<>();// contains raw data
@@ -179,23 +139,25 @@ static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> Ambul
 
   public void Tester(ArrayList<Patient> patientList2, ArrayList<Ambulance> ambulanceList2, List<Point> stations, List<Station> stationList, int endTime) {
 
-		System.out.println("BACK AT THE START");
+	
 		ArrayList<Patient> tt = new ArrayList<Patient>();
 		for(Patient pe : PatientList){
 			if(pe.getStatus().equals("Pending")){
 				tt.add(pe);
 			}
 		}
+	 map = new AmbulanceMap(PatientList, AmbulanceList);
+
 	 this.AmbulanceList = ambulanceList2;
 	 this.PatientList = patientList2;
 	 this.stations = stations;
-	 ExecutorService threadPool = Executors.newFixedThreadPool(AmbulanceList.size());
-	 System.out.println(AmbulanceList.size() + "LOOK HERE WILL");
+	 threadPool = Executors.newFixedThreadPool(AmbulanceList.size());
+
 
 	long start = System.currentTimeMillis();
 	long end = start + this.endTime*1000; 
-	//AmbulanceMap map = new AmbulanceMap(PatientList, AmbulanceList);
 	
+
 	for(Ambulance a : AmbulanceList){
 		try{
 			Thread.sleep(100);
@@ -206,7 +168,8 @@ static void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> Ambul
 		}
 		
 	}
-while (System.currentTimeMillis() < end)
+	
+while (System.currentTimeMillis() < end && !threadPool.isShutdown())
 	{
 		try{
 			Thread.sleep(1000);
@@ -214,17 +177,17 @@ while (System.currentTimeMillis() < end)
 			for (Ambulance str : AmbulanceList) {
 			    strings.add(new String[]{str.getID(), str.getX_location()+"," +str.getY_location(), str.getStatus(), str.getpatient()});
 			}
-			AmbulanceDisplay.NewModel.AddCSVData(strings);
-			AmbulanceDisplay.NewModel.fireTableDataChanged();
-			//AmbulanceMap.main(PatientList, AmbulanceList);
+			AmbulanceSimulation.NewModel.AddCSVData(strings);
+			AmbulanceSimulation.NewModel.fireTableDataChanged();
 			
        	} catch(Exception ex) {
     	    Thread.currentThread().interrupt();
     	}
-		for(Station st: this.stationList){
-			System.out.println(st + "HEY");
-		}
 	}
+	map.setVisible(false);
+	//map.dispose();
+	
+	//threadPool.cancel(true);
 	threadPool.shutdownNow();
 	  synchronized(this){
 	try {
@@ -232,11 +195,13 @@ while (System.currentTimeMillis() < end)
 	} catch (Exception e) {
 		e.printStackTrace();
 	} 
-	System.out.println("60 SECOND TIMER IS DONE!");
-	AmbulanceMap.main(PatientList, AmbulanceList);
-	//ArrayList<String[]> Rs2 = R1.ReadCSVfile(DataFile1);
-	//AmbulanceDisplay.NewModel.AddCSVData(Rs2);
-  	//AmbulanceDisplay.NewModel.fireTableDataChanged();
+	JOptionPane.showMessageDialog(mainFrame,endTime +  "Timer is Done or Stop was pressed!");		 
+	System.out.println(endTime +  "Timer is Done!");
+	System.out.println(endTime +  "Timer is Done!");
+	System.out.println(endTime +  "Timer is Done!");
+	System.out.println(endTime +  "Timer is Done!");
+	System.out.println(endTime +  "Timer is Done!");
+	
 	  }
 	  }
 		

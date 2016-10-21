@@ -186,7 +186,7 @@ public class AmbulanceThread implements Runnable {
 
 
 			void prepareGUI(ArrayList<Patient> PatientList,ArrayList<Ambulance> AmbulanceList){
-			AmbulanceDisplay.main( PatientList, AmbulanceList);
+			//AmbulanceDisplay.main( PatientList, AmbulanceList);
 			}
 
 			private synchronized void Responding(Ambulance a, List<Point> stations, ArrayList<Ambulance> AmbulanceList, ArrayList<Patient> PatientList ) {

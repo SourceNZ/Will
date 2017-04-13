@@ -1,0 +1,8 @@
+id,x.Location,y.Location,status,ambulance
+1,9,31,"Transporting",A42
+2,27,40,"Assigned",A7
+3,82,12,"Pending",A117
+4,56,43,"Pending",A10
+5,5,5,"Pending",A21
+6,0,0,"Completed", 
+

@@ -1,0 +1,7 @@
+id,x.Location,y.Location,status,patient
+A7,18,25,Responding,2
+A42,9,31,At Scene,1
+A117,1,1,At Station,3
+A10,1,1,At Station,4
+A21,20,20,At Station,5
+

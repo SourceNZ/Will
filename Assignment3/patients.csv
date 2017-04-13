@@ -1,0 +1,11 @@
+"id","x.location","y.location","status","ambulance"
+1,17,19,"Assigned","A64"
+2,50,50,"Completed",
+3,78,29,"Pending",
+4,97,12,"Pending",
+5,27,17,"Pending",
+6,28,17,"Pending",
+7,67,2,"Pending",
+8,3,99,"Pending",
+9,30,81,"Pending",
+10,49,50,"Pending",

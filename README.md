@@ -7,4 +7,5 @@ Adaptive Thresholding JavaScript is from COMPSCI 373 and was used in ImageJ to a
 
 WindowsFormsApplication1 was an assignment from COMPSCI 280 using Winforms and the same SQL database to track fake ambulances/patients and assign them to eachother using C#
 
-"William"  was an assignment from COMPSCI 230 using Java and Java swing to create an app that tracked ambulances and patients with data stored in CSV files. 
+"William"  was an assignment from COMPSCI 230 using Java and Java swing to create an app that tracked ambulances and patients with data stored in CSV files using multiple threads for optimisation. 
+
